@@ -1,0 +1,36 @@
+INSTRUCTION
+stworz, dodaj
+znajdz, odszukaj, poszukaj, wypisz
+przenies, zanies
+usun
+zamien
+PARAMETER
+id
+name, nazwa, nazwie
+weight, waga, wadze, ciezar, ciezarze
+color, kolor, kolorze
+type, typ, typie
+rack, polka, polke, polce, polki
+shelf, dzial, dzialu, dziale, regał, regału, regale, regalu, regal
+UNIQUE
+z, i
+na, w, do
+exit, rezygnuje, żaden, zaden
+all, wszystkie, kazdy, kazde, wszystko
+random, losowo, obojetnie
+COLOR
+czerwony, czerwonym, czerwonego
+niebieski, niebieskim, niebieskiego
+zielony, zielonym, zielonego
+rozowy
+bialy, bialym, bialego
+czarny, czarnym, czarnego
+fioletowy
+pomaranczowy
+żółty, zolty, zoltym, zoltego
+TYPE
+gwiazdka, gwiazda, gwiazda, gwiazdka
+trójkąt, trojkat, trojkatem
+kwadrat, kwadratem
+koło, kola, koła, kolo, kolem
+prostokąt, prostokat, prostokatem
