@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import org.dszi.forklift.Forklift;
 import org.dszi.forklift.analiza.NaturalLanguage;
 
 /**
@@ -35,7 +36,7 @@ public class CommandlinePanel extends JPanel {
 	private Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int mouseClicksCount = 0;
 
-	CommandlinePanel() {
+	public CommandlinePanel() {
 		super();
 		int temp;
 		setLayout(new BorderLayout());

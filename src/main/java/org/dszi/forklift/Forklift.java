@@ -1,5 +1,19 @@
 package org.dszi.forklift;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.dszi.forklift.logic.Task;
+import org.dszi.forklift.logic.GameLogic;
+import org.dszi.forklift.ui.ItemListPanel;
+import org.dszi.forklift.ui.AddingForm;
+import org.dszi.forklift.ui.CommandlinePanel;
+import org.dszi.forklift.ui.InformationPanel;
+import org.dszi.forklift.ui.ButtonPanel;
+import org.dszi.forklift.ui.TextPanel;
+import org.dszi.forklift.models.Trash;
+import org.dszi.forklift.models.Cart;
+import org.dszi.forklift.models.Storehouse;
+import org.dszi.forklift.models.Item;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -28,28 +42,41 @@ public class Forklift extends Canvas {
 
 	private final JPanel panel;
 	private boolean isRunning = true;
-	private static final Storehouse magazyn = new Storehouse();
+	private final Storehouse magazyn;
 	private final ButtonPanel buttonPanel;
 	private InformationPanel rightPanel;
 	private final TextPanel rightTextPanel;
 	private final CommandlinePanel CommandField;
-	private static final JPanel drawingPane = new JPanel();
+	private final JPanel drawingPane;
 	private final RepaintManager myRepaintManager;
 	private final GameLogic gameLogic = new GameLogic();
 	private final ActionListener panelAction;
-	private static JFrame frame = new JFrame();
-	private static final Cart forklift = new Cart();
-	private static final Trash trash = new Trash();
+	private JFrame frame;
+	private final Cart forklift;
+	private final Trash trash;
+	private static Injector injector;
 
-	public static Cart getCart() {
+	public Cart getCart() {
 		return forklift;
 	}
 
-	public static Trash getTrash() {
+	public Trash getTrash() {
 		return trash;
 	}
 
+	public static Injector getInjector() {
+		return injector;
+	}
+
 	public Forklift() {
+
+		this.injector = Guice.createInjector(new RepositoryModule());
+		this.magazyn = injector.getInstance(Storehouse.class);
+		this.trash = injector.getInstance(Trash.class);
+		this.forklift = injector.getInstance(Cart.class);
+		this.drawingPane = injector.getInstance(JPanel.class);
+		this.frame = injector.getInstance(JFrame.class);
+
 		this.panelAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -88,21 +115,18 @@ public class Forklift extends Canvas {
 		myRepaintManager = new RepaintManager();
 		RepaintManager.setCurrentManager(myRepaintManager);
 
-		//GameLogic.addTask(Task.ACTION_TYPE_ADD, new Object("Example", 12.0, "bialy", "kwadrat"));
+		//GameLogic.addTask(Task.ACTION_TYPE_ADD, new Item("Example", 12.0, "bialy", "kwadrat"));
 		//GameLogic.addTask(Task.ACTION_TYPE_DELETE, Storehouse.getObjects().get(2));
-		//GameLogic.addTask(Task.ACTION_TYPE_ADDANYWHERE, new Object("Example",12.0,"bialy","kwadrat"));
-		GameLogic.addTask(Task.ACTION_TYPE_REPLACE, Storehouse.getObjects().get(1), Storehouse.getObjects().get(3));
+		//GameLogic.addTask(Task.ACTION_TYPE_ADDANYWHERE, new Item("Example",12.0,"bialy","kwadrat"));
+//		GameLogic.addTask(Task.ACTION_TYPE_REPLACE, magazyn.getObjects().get(1), magazyn.getObjects().get(3));
 
 		//GameLogic.addTask(Task.ACTION_TYPE_MOVE, Storehouse.getObjects().get(2));
 	}
 
-	public static Storehouse getStorehouse() {
+	public Storehouse getStorehouse() {
 		return magazyn;
 	}
 
-	public static JPanel getDrawingPane() {
-		return drawingPane;
-	}
 
 	public Forklift getForklift() {
 		return this;
@@ -111,8 +135,8 @@ public class Forklift extends Canvas {
 	public void loop() throws InterruptedException {
 		while (isRunning) {
 			gameLogic.processLogic();
-			RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
-			RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
+			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		}
 	}
 
@@ -123,33 +147,33 @@ public class Forklift extends Canvas {
 	}
 
 	private void initObjects() {
-		Object exampleObject = new Object("Słoik", 12.0, "Żółty", "Kwadrat");
-		Object exampleObject1 = new Object("Skrzynia", 12.0, "Niebieski", "Prostokąt");
-		Object exampleObject2 = new Object("Krzesło", 9.0, "Zielony", "Koło");
-		Object exampleObject3 = new Object("Opona", 3.0, "Czerwony", "Koło");
+		Item exampleObject = new Item("Słoik", 12.0, "Żółty", "Kwadrat");
+		Item exampleObject1 = new Item("Skrzynia", 12.0, "Niebieski", "Prostokąt");
+		Item exampleObject2 = new Item("Krzesło", 9.0, "Zielony", "Koło");
+		Item exampleObject3 = new Item("Opona", 3.0, "Czerwony", "Koło");
 
-		magazyn.addObjectSpecifically(exampleObject, 0, 0);
+		/*magazyn.addObjectSpecifically(exampleObject, 0, 0);
 		magazyn.addObjectSpecifically(exampleObject1, 0, 0);
 		magazyn.addObjectSpecifically(exampleObject2, 1, 4);
-		magazyn.addObjectSpecifically(exampleObject3, 2, 2);
+		magazyn.addObjectSpecifically(exampleObject3, 2, 2);*/
 
-		System.out.println(magazyn.getRacks()[0].getShelf(0).getBoxes()[exampleObject1.getPlace()].getBoxXY());
+//		System.out.println(magazyn.getRacks()[0].getShelf(0).getBoxes()[exampleObject1.getPlace()].getBoxXY());
 	}
 
 	private void fillDrawingPane() {
 		drawingPane.setBackground(Color.LIGHT_GRAY);
 		drawingPane.add(trash);
 		drawingPane.add(forklift);
-		drawingPane.add(Storehouse.racks[0]);
+		/*drawingPane.add(Storehouse.racks[0]);
 		drawingPane.add(Storehouse.racks[1]);
 		drawingPane.add(Storehouse.racks[2]);
 		drawingPane.add(Storehouse.racks[3]);
 		drawingPane.add(Storehouse.racks[4]);
-		drawingPane.add(Storehouse.racks[5]);
+		drawingPane.add(Storehouse.racks[5]);*/
 		//drawingPane.add(Storehouse.racks[6]);
 		initObjects();
 		frame.setVisible(true);
-		System.out.println(magazyn.getRacks()[0].getShelf(0).getBoxes()[1].getBoxXY());
+//		System.out.println(magazyn.getRacks()[0].getShelf(0).getBoxes()[1].getBoxXY());
 		// System.out.println(
 		// magazyn.getRacks()[1].getShelf(4).getBoxes()[exampleObject2.getPlace()].getLocationOnScreen()    );
 	}
@@ -159,10 +183,6 @@ public class Forklift extends Canvas {
 		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
 		graphicsDevice.setFullScreenWindow(myFrame);
-	}
-
-	public static JFrame getFrame() {
-		return frame;
 	}
 
 	private void initButtonPanel(final ButtonPanel buttonPanel) {
@@ -195,7 +215,7 @@ public class Forklift extends Canvas {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				rightPanel.removeAll();
-				ItemListPanel objcts = new ItemListPanel();
+				ItemListPanel objcts = injector.getInstance(ItemListPanel.class);
 				rightPanel.add(buttonPanel, BorderLayout.NORTH);
 				rightPanel.add(CommandField, BorderLayout.SOUTH);
 				rightPanel.add(objcts, BorderLayout.CENTER);

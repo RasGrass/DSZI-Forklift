@@ -1,4 +1,6 @@
-package org.dszi.forklift;
+package org.dszi.forklift.analiza;
+
+import org.dszi.forklift.models.Item;
 
 /**
  *
@@ -14,7 +16,7 @@ public class Criteria {
 		name = color = type = null;
 	}
 
-	public boolean match(Object o) {
+	public boolean match(Item o) {
 		if (id != -1 && id != o.getID()) {
 			return false;
 		}

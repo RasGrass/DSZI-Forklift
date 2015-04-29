@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,9 +14,9 @@ import javax.swing.ScrollPaneConstants;
  */
 public class TextPanel extends JPanel {
 
-	private JTextPane help = new JTextPane();
+	private final JTextPane help = new JTextPane();
 
-	TextPanel() {
+	public TextPanel() {
 		super();
 
 		help.setEditable(false);

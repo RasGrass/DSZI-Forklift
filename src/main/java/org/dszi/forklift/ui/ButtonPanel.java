@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
@@ -16,7 +16,7 @@ public class ButtonPanel extends JPanel {
 	public JButton stanMagazynu = new JButton("Stan Magazynu");
 	public JButton Pomoc = new JButton("Pomoc");
 
-	ButtonPanel() {
+	public ButtonPanel() {
 		setBackground(Color.LIGHT_GRAY);
 		setBorder(BorderFactory.createTitledBorder("Opcje programu"));
 

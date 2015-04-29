@@ -1,5 +1,6 @@
-package org.dszi.forklift;
+package org.dszi.forklift.models;
 
+import com.google.inject.Inject;
 import java.awt.AWTEvent;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,39 +9,27 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 
 import java.awt.Rectangle;
-import java.net.URISyntaxException;
+import javax.swing.JPanel;
 import javax.swing.RepaintManager;
+import org.dszi.forklift.repository.ImageRepository;
 
 public class Cart extends JComponent {
 
 	private int m_x;
 	private int m_y;
-	private int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 20;
-	private int rescaledY = (int) Toolkit.getDefaultToolkit().getScreenSize().height / 15;
+	private final int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 20;
+	private final int rescaledY = (int) Toolkit.getDefaultToolkit().getScreenSize().height / 15;
 	private boolean haveToMoveX = false;
 	private boolean haveToMoveY = false;
-	private Point desiredLocation = new Point();
-	Graphics2D g2d;
-	Rectangle newBounds = new Rectangle();
-
-	private BufferedImage forkliftImage_right;
-	private BufferedImage forkliftImage_left;
-	private BufferedImage forkliftImage_top;
-	private BufferedImage forkliftImage_down;
-	private BufferedImage forkliftImage_empty_right;
-	private BufferedImage forkliftImage_empty_left;
-	private BufferedImage forkliftImage_empty_top;
-	private BufferedImage forkliftImage_empty_down;
+	private final Point desiredLocation = new Point();
+	private Graphics2D g2d;
+	private Rectangle newBounds = new Rectangle();
 
 	private Image scaledImage_right;
 	private Image scaledImage_left;
@@ -61,69 +50,34 @@ public class Cart extends JComponent {
 	private boolean empty_top = false;
 	private boolean empty_down = false;
 
-	Cart() {
+	private JPanel drawingPane;
+
+	private Storehouse storehouse;
+
+	private Trash trash;
+
+	private ImageRepository imageRepository;
+
+	@Inject
+	public Cart(Storehouse storehouse, ImageRepository imageRepository, JPanel drawingPane, Trash trash) {
 		super();
+		this.drawingPane = drawingPane;
+		this.storehouse = storehouse;
+		this.imageRepository = imageRepository;
+		this.trash = trash;
 		setPreferredSize(new Dimension(rescaledX + 100, rescaledY + 50));
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_right.png");
-			forkliftImage_right = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage1.gif" + e.getMessage());
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_left.png");
-			forkliftImage_left = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_top.png");
-			forkliftImage_top = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_down.png");
-			forkliftImage_down = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_empty_right.png");
-			forkliftImage_empty_right = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_empty_left.png");
-			forkliftImage_empty_left = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_empty_top.png");
-			forkliftImage_empty_top = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/forklift_empty_down.png");
-			forkliftImage_empty_down = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file forkliftimage.gif");
-		}
 		m_x = 0;
 		m_y = 0;
 		setBounds((int) m_x, (int) m_y, rescaledX + 200, rescaledY + 200);
 		setLocation((int) m_x, (int) m_y);
 		setToolTipText("Wozek widłowy");
 		ToolTipManager.sharedInstance().registerComponent(this);
-		scaleImage();
 		int p;
 		newBounds = getBounds();
 		p = newBounds.height;
 		newBounds.height = newBounds.width;
 		newBounds.width = p;
+		scaleImage();
 	}
 
 	public void setEmpty(boolean empty) {
@@ -210,11 +164,10 @@ public class Cart extends JComponent {
 		if (haveToMoveX) {
 			moveX(desiredLocation.x);
 		}
-		RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+		RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		if (haveToMoveY) {
 			moveY(desiredLocation.y);
 		}
-
 		setLocation(m_x, m_y);
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -254,7 +207,7 @@ public class Cart extends JComponent {
 	}
 
 	public boolean moveX(int x) {
-		RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+		RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		haveToMoveX = true;
 		haveToMoveY = false;
 		desiredLocation.x = x;
@@ -270,7 +223,7 @@ public class Cart extends JComponent {
 		} catch (InterruptedException ex) {
 			Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+		RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		if (m_x == desiredLocation.x) {
 			haveToMoveX = false;
 			return true;
@@ -280,7 +233,7 @@ public class Cart extends JComponent {
 	}
 
 	public boolean moveY(int y) {
-		RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+		RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		haveToMoveY = true;
 		haveToMoveX = false;
 		desiredLocation.y = y;
@@ -296,7 +249,7 @@ public class Cart extends JComponent {
 		} catch (InterruptedException ex) {
 			Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		RepaintManager.currentManager(Forklift.getDrawingPane()).markCompletelyDirty(Forklift.getDrawingPane());
+		RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		if (m_y == desiredLocation.y) {
 			haveToMoveY = false;
 			return true;
@@ -317,20 +270,21 @@ public class Cart extends JComponent {
 	}
 
 	private void scaleImage() {
-		scaledImage_right = forkliftImage_right.getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
-		scaledImage_left = forkliftImage_left.getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
-		scaledImage_top = forkliftImage_top.getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
-		scaledImage_down = forkliftImage_down.getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
-		scaledImage_empty_right = forkliftImage_empty_right.getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
-		scaledImage_empty_left = forkliftImage_empty_left.getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
-		scaledImage_empty_top = forkliftImage_empty_top.getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
-		scaledImage_empty_down = forkliftImage_empty_down.getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
+		scaledImage_right = imageRepository.getForkliftImageRight().getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
+		scaledImage_left = imageRepository.getForkliftImageLeft().getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
+		scaledImage_top = imageRepository.getForkliftImageUp().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
+		scaledImage_down = imageRepository.getForkliftImageDown().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
+		scaledImage_empty_right = imageRepository.getForkliftImageRightEmpty().getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
+		scaledImage_empty_left = imageRepository.getForkliftImageLeftEmpty().getScaledInstance(rescaledX, rescaledY, Image.SCALE_SMOOTH);
+		scaledImage_empty_top = imageRepository.getForkliftImageUpEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
+		scaledImage_empty_down = imageRepository.getForkliftImageDownEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
 	}
 
-	public void moveToLocation(Object obj) throws InterruptedException {
-		int getY = Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
-		int halfX = (int) (Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getLocationOnScreen().x - (Rack.SPACER / 1.3));
-		int boxY = (int) (Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
+	public void moveToLocation(Item obj) throws InterruptedException {
+
+		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
+		int halfX = (int) (storehouse.getRacks()[obj.getRackNumber()].getLocationOnScreen().x - (Rack.SPACER / 1.3));
+		int boxY = (int) (storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
 
 		if ((m_x + 5) > (halfX) && (m_x - 5) < (halfX)) {
 			if (empty) {
@@ -357,12 +311,12 @@ public class Cart extends JComponent {
 		Thread.sleep(200);
 	}
 
-	public void moveToAnotherLocation(Object obj) {
-		int getX = Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().x;
-		int getY = Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
-		int halfX = Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getHeight() / 2;
-		int boxY = (int) (Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
-		int down = (int) (27 * Forklift.getStorehouse().getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder());
+	public void moveToAnotherLocation(Item obj) {
+		int getX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().x;
+		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
+		int halfX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getHeight() / 2;
+		int boxY = (int) (storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
+		int down = (int) (27 * storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder());
 
 		if ((m_x + 5) > (getX - halfX) && (m_x - 5) < (getX - halfX)) {
 			if (m_y < (getY - boxY)) {
@@ -436,7 +390,7 @@ public class Cart extends JComponent {
 	}
 
 	public void getBack() {
-		int down = (int) (27 * Forklift.getStorehouse().getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
+		int down = (int) (27 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
 		if (this.m_y > Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) {
 			setEmptyDown();
 			while (!this.moveY(down)) {
@@ -459,16 +413,16 @@ public class Cart extends JComponent {
 	}
 
 	public void moveToTrash() {
-		int left = (int) (3 * Forklift.getStorehouse().getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
+		int left = (int) (3 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
 		while (!this.moveY(0)) {
 		}
 		setRight();
-		while (!this.moveX(Forklift.getTrash().getX() - left)) {
+		while (!this.moveX(trash.getX() - left)) {
 		}
 	}
 
-	public void add(Object obj, int rack, int shelf) throws InterruptedException {
-		Forklift.getStorehouse().addObjectSpecifically(obj, rack, shelf);
+	public void add(Item obj, int rack, int shelf) throws InterruptedException {
+		storehouse.addObjectSpecifically(obj, rack, shelf);
 		setEmpty(false);
 		setRight();
 		obj.setVisible(false);
@@ -479,8 +433,8 @@ public class Cart extends JComponent {
 		getBack();
 	}
 
-	public void add(Object obj) throws InterruptedException {
-		Forklift.getStorehouse().addObjectAnywhere(obj);
+	public void add(Item obj) throws InterruptedException {
+		storehouse.addObjectAnywhere(obj);
 		setEmpty(false);
 		setRight();
 		obj.setVisible(false);
@@ -491,7 +445,7 @@ public class Cart extends JComponent {
 		getBack();
 	}
 
-	public void delete(Object obj) throws InterruptedException {
+	public void delete(Item obj) throws InterruptedException {
 		moveToLocation(obj);
 		obj.setVisible(false);
 		setEmpty(false);
@@ -500,18 +454,18 @@ public class Cart extends JComponent {
 		setTop();
 		moveToTrash();
 		setEmpty(true);
-		Forklift.getStorehouse().deleteObject(obj);
+		storehouse.deleteObject(obj);
 		setEmptyLeft();
 		getBack();
 	}
 
-	public void replace(Object obj, int rack, int shelf) throws InterruptedException {
+	public void replace(Item obj, int rack, int shelf) throws InterruptedException {
 		moveToLocation(obj);
 		obj.setVisible(false);
 		setEmpty(false);
 		setRight();
 		Thread.sleep(200);
-		Forklift.getStorehouse().replaceObject(rack, shelf, obj);
+		storehouse.replaceObject(rack, shelf, obj);
 		moveToAnotherLocation(obj);
 		setRight();
 		Thread.sleep(200);
@@ -522,7 +476,7 @@ public class Cart extends JComponent {
 	}
 
 	//źle działa
-	public void replace(Object obj1, Object obj2) throws InterruptedException {
+	public void replace(Item obj1, Item obj2) throws InterruptedException {
 		moveToLocation(obj1);
 		obj1.setVisible(false);
 		setEmpty(false);
@@ -539,7 +493,7 @@ public class Cart extends JComponent {
 		obj1.setVisible(true);
 		setEmpty(true);
 		setEmptyRight();
-		Forklift.getStorehouse().replaceObjects(obj1, obj2);
+		storehouse.replaceObjects(obj1, obj2);
 		getBack();
 	}
 }

@@ -1,4 +1,6 @@
-package org.dszi.forklift;
+package org.dszi.forklift.logic;
+
+import org.dszi.forklift.models.Item;
 
 /**
  *
@@ -12,7 +14,7 @@ public class Task {
 	public static final int ACTION_TYPE_DELETE = 1;
 	public static final int ACTION_TYPE_MOVE = 2;
 	public static final int ACTION_TYPE_WAIT = 0;
-	private Object[] objects = new Object[2];
+	private Item[] objects = new Item[2];
 	private int action;
 	private int rack;
 
@@ -25,13 +27,13 @@ public class Task {
 	}
 	private int shelf;
 
-	public Task(int actionType, Object obj1) {
+	public Task(int actionType, Item obj1) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = null;
 	}
 
-	public Task(int actionType, Object obj1, int rack, int shelf) {
+	public Task(int actionType, Item obj1, int rack, int shelf) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = null;
@@ -39,7 +41,7 @@ public class Task {
 		this.shelf = shelf;
 	}
 
-	public Task(int actionType, Object obj1, Object obj2) {
+	public Task(int actionType, Item obj1, Item obj2) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = obj2;
@@ -53,7 +55,7 @@ public class Task {
 		action = Task.ACTION_TYPE_WAIT;
 	}
 
-	public Object getObject(int objectNumber) {
+	public Item getObject(int objectNumber) {
 		if (objectNumber == 1) {
 			return objects[0];
 		} else {

@@ -1,18 +1,17 @@
-package org.dszi.forklift;
+package org.dszi.forklift.models;
 
+import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.RepaintManager;
+import org.dszi.forklift.repository.ImageRepository;
 
 /**
  *
@@ -20,20 +19,28 @@ import javax.swing.RepaintManager;
  */
 public class Shelf extends JComponent {
 
-	private ArrayList<Object> objOnShelf = new ArrayList(5);
+	private ArrayList<Item> objOnShelf = new ArrayList(5);
 	private int objectCount = 0;
-	private BufferedImage shelfImage;
 	private Image scaledImage;
 	private boolean left = false;
 	private boolean right = false;
 	private Box[] boxes = new Box[5];
-	private int spacer;
+	private final int spacer;
+
+	@Inject
+	private ImageRepository imageRepository;
+
+	@Inject
+	private JFrame mainFrame;
+
+	@Inject
+	private Storehouse storehouse;
 
 	public class Box extends JComponent {
 
-		private Object object;// = new Object();
+		private Item object;// = new Item();
 
-		public void setObject(Object obj) {
+		public void setObject(Item obj) {
 			object = obj;
 		}
 
@@ -41,13 +48,13 @@ public class Shelf extends JComponent {
 			object = null;
 		}
 
-		public Object getObject() {
+		public Item getObject() {
 			return object;
 		}
 
 		public Point getBoxXY() {
 			//Box.this.setVisible(true);
-			if (Forklift.getFrame().isVisible()) {
+			if (mainFrame.isVisible()) {
 				return new Point(Box.this.getLocationOnScreen().x, Box.this.getLocationOnScreen().y);
 			} else {
 				return null;
@@ -59,11 +66,7 @@ public class Shelf extends JComponent {
 		}
 
 		public boolean isEmpty() {
-			if (object == null) {
-				return true;
-			} else {
-				return false;
-			}
+			return object == null;
 		}
 
 		public Box() {
@@ -82,13 +85,6 @@ public class Shelf extends JComponent {
 		System.out.println(getPreferredSize());
 		ToolTipManager.sharedInstance().setEnabled(true);
 		setToolTipText("Shelf");
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/halfofshelf.png");
-			shelfImage = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("sdgdsg");
-		}
-		scaleImage();
 		if (left) {
 			right = true;
 			left = false;
@@ -123,20 +119,22 @@ public class Shelf extends JComponent {
 		g2d.drawImage(scaledImage, 0, 0, null);
 	}
 
-	public void assingObject(Object obj) {
+	public void assingObject(Item obj) {
+		scaleImage();
+
 		objectCount++;
 		objOnShelf.add(obj);
 
-		Storehouse.getObjects().add(obj);
+		storehouse.getObjects().add(obj);
 		boxes[obj.getPlace()].setObject(obj);
 		boxes[obj.getPlace()].add(obj);
 		RepaintManager.currentManager(this).markCompletelyDirty(obj);
 
 	}
 
-	public void removeObject(Object obj) {
+	public void removeObject(Item obj) {
 		objOnShelf.remove(obj);
-		Storehouse.getObjects().remove(obj);
+		storehouse.getObjects().remove(obj);
 		RepaintManager.currentManager(this).markCompletelyDirty(obj);
 		boxes[obj.getPlace()].removeObject();
 		boxes[obj.getPlace()].remove(obj);
@@ -169,7 +167,7 @@ public class Shelf extends JComponent {
 	}
 
 	private void scaleImage() {
-		scaledImage = shelfImage.getScaledInstance((int) Rack.RACK_WIDTH - 1, (int) (Rack.RACK_HEIGHT / 5) - 1, Image.SCALE_SMOOTH);
+		scaledImage = imageRepository.getShelfImage().getScaledInstance((int) Rack.RACK_WIDTH - 1, (int) (Rack.RACK_HEIGHT / 5) - 1, Image.SCALE_SMOOTH);
 	}
 ;
 }

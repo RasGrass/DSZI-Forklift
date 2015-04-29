@@ -1,6 +1,10 @@
-package org.dszi.forklift;
+package org.dszi.forklift.logic;
 
+import com.google.inject.Inject;
+import org.dszi.forklift.models.Item;
 import java.util.ArrayList;
+import org.dszi.forklift.Forklift;
+import org.dszi.forklift.models.Cart;
 
 /**
  *
@@ -8,17 +12,20 @@ import java.util.ArrayList;
  */
 public class GameLogic {
 
+	@Inject
+	private Cart cart;
+
 	private static ArrayList<Task> task = new ArrayList();
 
-	public static void addTask(int actionType, Object obj1) {
+	public static void addTask(int actionType, Item obj1) {
 		task.add(new Task(actionType, obj1));
 	}
 
-	public static void addTask(int actionType, Object obj1, int rack, int shelf) {
+	public static void addTask(int actionType, Item obj1, int rack, int shelf) {
 		task.add(new Task(actionType, obj1, rack, shelf));
 	}
 
-	public static void addTask(int actionType, Object obj1, Object obj2) {
+	public static void addTask(int actionType, Item obj1, Item obj2) {
 		task.add(new Task(actionType, obj1, obj2));
 	}
 
@@ -30,23 +37,23 @@ public class GameLogic {
 		if (task != null) {
 			switch (task.get(index).getActionType()) {
 				case Task.ACTION_TYPE_ADD:
-					Forklift.getCart().add(getTask(index).getObject(1), 2, 0);
+					cart.add(getTask(index).getObject(1), 2, 0);
 					//task = null;
 					break;
 				case Task.ACTION_TYPE_ADDANYWHERE:
-					Forklift.getCart().add(getTask(index).getObject(1));
+					cart.add(getTask(index).getObject(1));
 					//task = null;
 					break;
 				case Task.ACTION_TYPE_DELETE:
-					Forklift.getCart().delete(getTask(index).getObject(1));
+					cart.delete(getTask(index).getObject(1));
 					//task = null;
 					break;
 				case Task.ACTION_TYPE_MOVE:
-					Forklift.getCart().replace(getTask(index).getObject(1), getTask(index).getRack(), getTask(index).getShelf());
+					cart.replace(getTask(index).getObject(1), getTask(index).getRack(), getTask(index).getShelf());
 					//task = null;
 					break;
 				case Task.ACTION_TYPE_REPLACE:
-					Forklift.getCart().replace(getTask(index).getObject(1), getTask(index).getObject(2));
+					cart.replace(getTask(index).getObject(1), getTask(index).getObject(2));
 					//task = null;
 					break;
 				default:

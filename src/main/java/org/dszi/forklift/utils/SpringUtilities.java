@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.utils;
 
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.

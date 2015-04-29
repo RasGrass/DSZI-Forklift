@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ public class InformationPanel extends JTextArea {
 
 	protected Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	InformationPanel() {
+	public InformationPanel() {
 		super();
 		int temp;
 		temp = (int) (panelSize.width / 1.5);

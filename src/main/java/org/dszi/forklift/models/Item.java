@@ -1,59 +1,59 @@
-package org.dszi.forklift;
+package org.dszi.forklift.models;
 
+import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import org.dszi.forklift.analiza.NaturalLanguage;
+import org.dszi.forklift.repository.ImageRepository;
 
 /**
  *
  * @author RasGrass
  */
-public class Object extends JComponent {
+public class Item extends JComponent {
 
-	private double weight;
-	private String name;
-	private String color;
-	private String type;
+	private final double weight;
+	private final String name;
+	private final String color;
+	private final String type;
 	private int rackNumber = 0;
 	private int shelfNumber = 0;
 	private static int counter = 0;
 	private final int ID;
-	private BufferedImage objectImage;
 	private Image scaledImage;
-	private static Point lastLocation = new Point();
-	Dimension dim = new Dimension(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getPreferredSize());
+	private Dimension dim;
 	private int place = 0;
 
-	public Object(String name, double weight, String color, String type) {
+	@Inject
+	private Storehouse storehouse;
+
+	@Inject
+	private ImageRepository imageRepository;
+
+	public Item(String name, double weight, String color, String type) {
 		this.weight = weight;
 		this.name = name;
 		this.color = color;
 		this.type = type;
 		this.ID = counter++;
-		init();
-		//dim = new Dimension(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getPreferredSize());
+
 	}
 
-	public Object(String name, double weight, String color, String type, int place) {
+	public Item(String name, double weight, String color, String type, int place) {
+		this.dim = new Dimension(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getPreferredSize());
 		this.weight = weight;
 		this.name = name;
 		this.color = color;
 		this.type = type;
 		this.ID = counter++;
 		this.place = place;
-		init();
-		//dim = new Dimension(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getPreferredSize());
 	}
 
-	public Object(Object obj) {
+	public Item(Item obj) {
+		this.dim = new Dimension(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getPreferredSize());
 
 		this.weight = obj.getWeight();
 		this.name = obj.getName();
@@ -61,7 +61,6 @@ public class Object extends JComponent {
 		this.type = obj.getType();
 		this.ID = counter++;
 		this.place = obj.getPlace();
-		init();
 		//dim = new Dimension(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getPreferredSize());
 
 	}
@@ -75,7 +74,9 @@ public class Object extends JComponent {
 	}
 
 	public void setPlace(int place) {
+		
 		this.place = place;
+		init();
 		//setLocation(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getLocation());
 
 	}
@@ -149,16 +150,17 @@ public class Object extends JComponent {
 
 	private void scaleImage() {
 
-		scaledImage = objectImage.getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
+//		scaledImage = imageRepository.getObjectImage().getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
 	}
 
 	private void init() {
+		this.dim = new Dimension();
 		dim.width = (int) (dim.width / 1.925);
 		dim.height = (int) (dim.height / 5.814);
 
-		setPreferredSize(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getSize());
-		setBounds(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getBounds());
-		setLocation(Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getLocation().x + dim.width / 2, Forklift.getStorehouse().getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getLocation().y + dim.height / 7);
+//		setPreferredSize(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getSize());
+	//	setBounds(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getBounds());
+	//	setLocation(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getLocation().x + dim.width / 2, storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getLocation().y + dim.height / 7);
 
 		setToolTipText("<HTML>"
 				+ "<BODY>"
@@ -169,12 +171,6 @@ public class Object extends JComponent {
 				+ "</HTML>");
 
 		super.setName(name);
-		try {
-			URL url = new URL("file://"+System.getProperty("user.dir")+"/res/box2.png");
-			objectImage = ImageIO.read(url);
-		} catch (IOException e) {
-			System.err.println("Can't load file boximage.gif");
-		}
 		scaleImage();
 		NaturalLanguage.objectAdded(name);
 	}

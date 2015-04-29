@@ -1,22 +1,29 @@
-package org.dszi.forklift;
+package org.dszi.forklift.models;
 
 import java.awt.FlowLayout;
+import java.util.List;
 import java.util.ArrayList;
+import org.dszi.forklift.Forklift;
+import org.dszi.forklift.analiza.Criteria;
 
-public class Storehouse extends Cart {
+public class Storehouse {
 
-	private static ArrayList<Object> objects = new ArrayList();
+	private List<Item> objects = new ArrayList<>();
 	public static Rack[] racks = new Rack[7];
 
 	/*public static Storehouse getStorehouse() {
 	 return this;
 	 }*/
-	Storehouse() {
+	public Storehouse() {
 		for (int i = 0; i < 6; i++) {
-			racks[i] = new Rack();
 			FlowLayout flow = new FlowLayout();
+
+			if (Forklift.getInjector() != null) {
+				racks[i] = Forklift.getInjector().getInstance(Rack.class);
+				racks[i].setLayout(flow);
+			}
 			flow.setVgap(0);
-			racks[i].setLayout(flow);
+
 		}
 
 	}
@@ -25,16 +32,16 @@ public class Storehouse extends Cart {
 		return racks;
 	}
 
-	public static ArrayList<Object> getObjects() {
+	public List<Item> getObjects() {
 		return objects;
 	}
 
-	public static String[][] _getObjects() {
+	public String[][] _getObjects() {
 		String[][] arr = new String[objects.size()][5];
 		for (int i = 0; i < objects.size(); i++) {
-			arr[i][0] = new Integer(objects.get(i).getID()).toString();
+			arr[i][0] = Integer.toString(objects.get(i).getID());
 			arr[i][1] = objects.get(i).getName();
-			arr[i][2] = new Double(objects.get(i).getWeight()).toString();
+			arr[i][2] = Double.toString(objects.get(i).getWeight());
 			arr[i][3] = objects.get(i).getColor();
 			arr[i][4] = objects.get(i).getType();
 		}
@@ -42,15 +49,15 @@ public class Storehouse extends Cart {
 
 	}
 
-	public void addObjectSpecifically(Object obj, int rack, int shelf, int place) {
+	public void addObjectSpecifically(Item obj, int rack, int shelf, int place) {
 		obj.setRackNumber(rack);
 		obj.setShelfNumber(shelf);
-		Forklift.getStorehouse().getRacks()[rack].getShelf(shelf).getBoxes()[place].add(obj);
+		getRacks()[rack].getShelf(shelf).getBoxes()[place].add(obj);
 		racks[rack].getShelf(shelf).assingObject(obj);
 
 	}
 
-	public void addObjectSpecifically(Object obj, int rack, int shelf) {
+	public void addObjectSpecifically(Item obj, int rack, int shelf) {
 		obj.setRackNumber(rack);
 		obj.setShelfNumber(shelf);
 		for (int boxes = 0; boxes < 5; boxes++) {
@@ -65,7 +72,7 @@ public class Storehouse extends Cart {
 
 	}
 
-	public void addObjectAnywhere(Object obj) {
+	public void addObjectAnywhere(Item obj) {
 		boolean isItCreate = false;
 		for (int rack = 0; rack < 5; rack++) {
 			for (int shelf = 0; shelf < 5; shelf++) {
@@ -82,14 +89,13 @@ public class Storehouse extends Cart {
 		}
 	}
 
-	public static void deleteObject(Object obj) {
+	public void deleteObject(Item obj) {
 		racks[obj.getRackNumber()].getShelf(obj.getShelfNumber()).removeObject(obj);
 		racks[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].remove(obj);
 //        racks[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].setObject(null);
-		obj = null;
 	}
 
-	public void replaceObject(int toRack, int toShelf, Object obj) {
+	public void replaceObject(int toRack, int toShelf, Item obj) {
 		if (racks[toRack].getShelf(toShelf).getObjectCount() < 5) {
 			racks[toRack].getShelf(toShelf).assingObject(obj);
 			racks[obj.getRackNumber()].getShelf(obj.getShelfNumber()).removeObject(obj);
@@ -100,10 +106,10 @@ public class Storehouse extends Cart {
 		}
 	}
 
-	public static void replaceObjects(Object obj1, Object obj2) {
+	public void replaceObjects(Item obj1, Item obj2) {
 		//obj1 jest przenoszony w inne wolne miejsce
 
-		Object tempObj = obj2;
+		Item tempObj = obj2;
 		int tempRackNumber2 = obj2.getRackNumber();
 		int tempShelfNumber2 = obj2.getShelfNumber();
 
@@ -127,26 +133,25 @@ public class Storehouse extends Cart {
 		racks[tempRackNumber1].getShelf(tempShelfNumber1).assingObject(tempObj);
 		obj2.setRackNumber(tempRackNumber1);
 		obj2.setShelfNumber(tempShelfNumber1);
-		tempObj = null;
 	}
 
-	public static Object find(int id) {
-		for (int i = 0; i < objects.size(); i++) {
-			if (objects.get(i).getID() == id) {
+	public Item find(int id) {
+		for (Item object : objects) {
+			if (object.getID() == id) {
 				System.out.println("Znaleziono obiekt o podanym id");
-				return objects.get(i);
+				return object;
 			}
 		}
 		System.out.println("Nie znaleziono obiektu o podanym id");
 		return null;
 	}
 
-	public static ArrayList<Object> findByCriteria(Criteria c) {
-		ArrayList<Object> found = new ArrayList<Object>();
+	public List<Item> findByCriteria(Criteria c) {
+		List<Item> found = new ArrayList<>();
 
-		for (int i = 0; i < objects.size(); i++) {
-			if (c.match(objects.get(i))) {
-				found.add(objects.get(i));
+		for (Item object : objects) {
+			if (c.match(object)) {
+				found.add(object);
 			}
 		}
 

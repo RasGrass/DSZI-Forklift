@@ -1,5 +1,7 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
+import com.google.inject.Inject;
+import org.dszi.forklift.models.Item;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,24 +20,39 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
+import org.dszi.forklift.models.Storehouse;
+import org.dszi.forklift.utils.SpringUtilities;
 //import javax.swing.SpringUtilities;
 
 public class AddingForm extends JPanel {
 
-	private Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private static ArrayList<String> savedNames = new ArrayList<>();
+	private final Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private final List<String> savedNames;
 	private final String randomChoice = " < Losowo > ";
-	private String[] labels = {"Nazwa: ", "Ciężar: ", "Kolor: ", "Typ: "};
-	private int numPairs = labels.length;
-	private JPanel p = new JPanel(new SpringLayout());
-	final JComboBox[] comboBoxes = new JComboBox[4];
-	private JButton send = new JButton("Dodaj");
-	private JButton cancel = new JButton("Anuluj");
-	private String[] colors = {"czerwony", "zielony", "niebieski", "czarny", "żółty"};
-	private String[] types = {"Prostokąt", "Kwadrat", "Koło", "Trójkąt", "Gwiazda"};
-	private Random rand = new Random();
+	private final String[] labels;
+	private final int numPairs;
+	private final JPanel p;
+	private final JComboBox[] comboBoxes;
+	private final JButton send;
+	private final JButton cancel;
+	private final String[] colors;
+	private final String[] types;
+	private final Random rand;
 
-	AddingForm() {
+	@Inject
+	private Storehouse storehouse;
+
+	public AddingForm() {
+		this.rand = new Random();
+		this.types = new String[]{"Prostokąt", "Kwadrat", "Koło", "Trójkąt", "Gwiazda"};
+		this.colors = new String[]{"czerwony", "zielony", "niebieski", "czarny", "żółty"};
+		this.cancel = new JButton("Anuluj");
+		this.send = new JButton("Dodaj");
+		this.p = new JPanel(new SpringLayout());
+		this.comboBoxes = new JComboBox[4];
+		this.labels = new String[]{"Nazwa: ", "Ciężar: ", "Kolor: ", "Typ: "};
+		this.numPairs = labels.length;
+		this.savedNames = new ArrayList<>();
 		initPanel();
 		initComponents();
 		setUpComponents();
@@ -46,8 +64,8 @@ public class AddingForm extends JPanel {
 	private boolean isNameDistinct() {
 		boolean isDistinct = true;
 		if (!savedNames.isEmpty()) {
-			for (int i = 0; i < savedNames.size(); i++) {
-				if (savedNames.get(i).equals(comboBoxes[0].getSelectedItem())) {
+			for (String savedName : savedNames) {
+				if (savedName.equals(comboBoxes[0].getSelectedItem())) {
 					isDistinct = false;
 				}
 			}
@@ -62,18 +80,18 @@ public class AddingForm extends JPanel {
 	}
 
 	private void addObjectUsingForm() throws NumberFormatException {
-		boolean randomColor = comboBoxes[2].getSelectedItem().equals(randomChoice) ? true : false;
-		boolean randomWeight = comboBoxes[1].getSelectedItem().equals(randomChoice) ? true : false;
-		boolean randomType = comboBoxes[3].getSelectedItem().equals(randomChoice) ? true : false;
-		boolean randomName = comboBoxes[0].getSelectedItem().equals(randomChoice) ? true : false;
+		boolean randomColor = comboBoxes[2].getSelectedItem().equals(randomChoice);
+		boolean randomWeight = comboBoxes[1].getSelectedItem().equals(randomChoice);
+		boolean randomType = comboBoxes[3].getSelectedItem().equals(randomChoice);
+		boolean randomName = comboBoxes[0].getSelectedItem().equals(randomChoice);
 
-		Object obj = new Object(
+		Item obj = new Item(
 				randomName ? "Obiekt" + rand.nextInt(200) : comboBoxes[0].getSelectedItem().toString(),
 				randomWeight ? randomizeWeight() : Double.parseDouble(comboBoxes[1].getSelectedItem().toString()),
 				randomColor ? randomizeColor() : parseColor(comboBoxes[2].getSelectedItem().toString()),
 				randomType ? randomizeType() : comboBoxes[3].getSelectedItem().toString());
 
-		Forklift.getStorehouse().addObjectAnywhere(obj);
+		storehouse.addObjectAnywhere(obj);
 		System.out.println(obj.getShelfNumber());
 		System.out.println(obj.getRackNumber());
 	}
@@ -82,8 +100,8 @@ public class AddingForm extends JPanel {
 		if (!savedNames.isEmpty()) {
 			comboBoxes[0].removeAllItems();
 			comboBoxes[0].addItem(randomChoice);
-			for (int i = 0; i < savedNames.size(); i++) {
-				comboBoxes[0].addItem(savedNames.get(i));
+			for (String savedName : savedNames) {
+				comboBoxes[0].addItem(savedName);
 			}
 		}
 	}
@@ -111,8 +129,8 @@ public class AddingForm extends JPanel {
 		if (!savedNames.isEmpty()) {
 			comboBoxes[0].removeAllItems();
 			comboBoxes[0].addItem(randomChoice);
-			for (int i = 0; i < savedNames.size(); i++) {
-				comboBoxes[0].addItem(savedNames.get(i));
+			for (String savedName : savedNames) {
+				comboBoxes[0].addItem(savedName);
 			}
 		} else {
 			comboBoxes[0].addItem(randomChoice);

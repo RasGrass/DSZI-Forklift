@@ -1,5 +1,7 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
+import com.google.inject.Inject;
+import org.dszi.forklift.models.Storehouse;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,14 +26,20 @@ import javax.swing.table.TableColumn;
  */
 public class ItemListPanel extends JPanel {
 
-	private Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private final Dimension panelSize;
 	private JTable objectTable;
 	private DefaultTableModel model;
-	private String[] rowNames = {"ID", "Nazwa", "Ciężar", "Kolor", "Typ"};
+	private final String[] rowNames;
 	private JScrollPane table;
 
-	ItemListPanel() {
+	private final Storehouse storehouse;
+
+	@Inject
+	public ItemListPanel(Storehouse storehouse) {
 		super();
+		this.storehouse = storehouse;
+		this.panelSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.rowNames = new String[]{"ID", "Nazwa", "Ciężar", "Kolor", "Typ"};
 		int temp;
 		temp = (int) (panelSize.width / 1.5);
 		panelSize.width = panelSize.width - temp;
@@ -46,13 +54,13 @@ public class ItemListPanel extends JPanel {
 	}
 
 	private void initTable() {
-		model = new DefaultTableModel(Storehouse._getObjects(), rowNames) {
+		model = new DefaultTableModel(storehouse._getObjects(), rowNames) {
 			@Override
 			public boolean isCellEditable(int cell, int column) {
 				return false;
 			}
 		};
-		model.setRowCount(Storehouse.getObjects().size());
+		model.setRowCount(storehouse.getObjects().size());
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 		cellRenderer.setHorizontalTextPosition(DefaultTableCellRenderer.CENTER);
 		cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
@@ -111,11 +119,10 @@ public class ItemListPanel extends JPanel {
 				objectTable.invalidate();
 				while (objectTable.getSelectedRows().length > 0) {
 					int selectedRowsCount = objectTable.getSelectedRows().length;
-					int[] selectedRows = new int[selectedRowsCount];
-					selectedRows = objectTable.getSelectedRows();
+					int[] selectedRows = objectTable.getSelectedRows();
 					int id = Integer.parseInt((String) model.getValueAt(selectedRows[0], 0));
-					System.out.println("usuwam" + Storehouse.find(id).toString());
-					Storehouse.deleteObject(Storehouse.find(id));
+					System.out.println("usuwam" + storehouse.find(id).toString());
+					storehouse.deleteObject(storehouse.find(id));
 					model.removeRow(selectedRows[0]);
 				}
 			}
