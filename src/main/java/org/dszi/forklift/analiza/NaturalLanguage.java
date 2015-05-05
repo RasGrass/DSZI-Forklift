@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import java.util.*;
 
 import java.io.*;
+import org.dszi.forklift.models.ActionTypes;
 import org.dszi.forklift.logic.GameLogic;
 import org.dszi.forklift.models.Storehouse;
 import org.dszi.forklift.logic.Task;
@@ -41,6 +42,7 @@ public class NaturalLanguage {
 	 * metoda, która przyjmuje jako argument tekst i zwraca odpowiedz bota
 	 * 
 	 */
+                /*
 	static public String interpret(String input) {
 		String output = "xyz";
 
@@ -302,7 +304,7 @@ public class NaturalLanguage {
 		}
 
 		//Storehouse.replaceObjects(found1.get(0), found2.get(0));
-		GameLogic.addTask(Task.ACTION_TYPE_REPLACE, found1.get(0), found2.get(0));
+		GameLogic.addTask(ActionTypes.ACTION_TYPE_REPLACE, found1.get(0), found2.get(0));
 
 		output = "Oto obiekty, ktore zostaną zamienione: \n\n";
 		output = output + found1.get(0);
@@ -372,10 +374,10 @@ public class NaturalLanguage {
 
 			if (rackNumber != -1 && shelfNumber != -1) {
 				// Forklift.getStorehouse().addObjectSpecifibercally(o, rackNumber, shelfNumber);
-				GameLogic.addTask(Task.ACTION_TYPE_ADD, o, rackNumber, shelfNumber);
+				GameLogic.addTask(ActionTypes.ACTION_TYPE_ADD, o, rackNumber, shelfNumber);
 			} else //Forklift.getStorehouse().addObjectAnywhere(o);
 			{
-				GameLogic.addTask(Task.ACTION_TYPE_ADDANYWHERE, o);
+				GameLogic.addTask(ActionTypes.ACTION_TYPE_ADDANYWHERE, o);
 			}
 
 			process = 0;
@@ -437,7 +439,7 @@ public class NaturalLanguage {
 		}
 
 		//Forklift.getStorehouse().replaceObject(rackNumber, shelfNumber, found.get(0));
-		GameLogic.addTask(Task.ACTION_TYPE_MOVE, found.get(0), rackNumber, shelfNumber);
+		GameLogic.addTask(ActionTypes.ACTION_TYPE_MOVE, found.get(0), rackNumber, shelfNumber);
 
 		output = "Poniższy obiekt został przeniesiony na półkę " + rackNumber + " regalu " + shelfNumber + "\n\n";
 		output = output + found.toString();
@@ -461,7 +463,7 @@ public class NaturalLanguage {
 
 		if (found.size() == 1) {
 			//Storehouse.deleteObject(found.get(0));
-			GameLogic.addTask(Task.ACTION_TYPE_DELETE, found.get(0));
+			GameLogic.addTask(ActionTypes.ACTION_TYPE_DELETE, found.get(0));
 			process = 0;
 			return "Obiekt zostanie usuniety.";
 		}
@@ -473,7 +475,7 @@ public class NaturalLanguage {
 		if (findKeyword("all", found_keywords) != -1) {
 			for (int i = 0; i < found.size(); i++) //Storehouse.deleteObject(found.get(i));
 			{
-				GameLogic.addTask(Task.ACTION_TYPE_DELETE, found.get(i));
+				GameLogic.addTask(ActionTypes.ACTION_TYPE_DELETE, found.get(i));
 			}
 
 			output = output + "\n\n" + "Powyższe obiekty zostały usunięte.";
@@ -668,5 +670,5 @@ public class NaturalLanguage {
 		keywords_count = i;
 
 		keywords[keywords_count++] = new Keyword("number", Keyword.NUMBER);
-	}
+	}*/
 }

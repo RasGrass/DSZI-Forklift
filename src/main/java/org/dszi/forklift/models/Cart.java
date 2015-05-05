@@ -20,7 +20,9 @@ import javax.swing.RepaintManager;
 import org.dszi.forklift.repository.ImageRepository;
 
 public class Cart extends JComponent {
-
+        
+        private int gridX;
+        private int gridY;
 	private int m_x;
 	private int m_y;
 	private final int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 20;
@@ -54,20 +56,22 @@ public class Cart extends JComponent {
 
 	private Storehouse storehouse;
 
-	private Trash trash;
+	//private Trash trash;
 
 	private ImageRepository imageRepository;
 
 	@Inject
-	public Cart(Storehouse storehouse, ImageRepository imageRepository, JPanel drawingPane, Trash trash) {
+	public Cart(Storehouse storehouse, ImageRepository imageRepository, JPanel drawingPane) {
 		super();
 		this.drawingPane = drawingPane;
 		this.storehouse = storehouse;
 		this.imageRepository = imageRepository;
-		this.trash = trash;
+		//this.trash = trash;
 		setPreferredSize(new Dimension(rescaledX + 100, rescaledY + 50));
 		m_x = 0;
 		m_y = 0;
+                gridX = 0;
+                gridY = 0;
 		setBounds((int) m_x, (int) m_y, rescaledX + 200, rescaledY + 200);
 		setLocation((int) m_x, (int) m_y);
 		setToolTipText("Wozek widłowy");
@@ -171,7 +175,7 @@ public class Cart extends JComponent {
 		setLocation(m_x, m_y);
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (empty == false) {
+		if (!empty) {
 			if (left) {
 				g2d.drawImage(scaledImage_left, 0, 0, this);
 			}
@@ -279,8 +283,43 @@ public class Cart extends JComponent {
 		scaledImage_empty_top = imageRepository.getForkliftImageUpEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
 		scaledImage_empty_down = imageRepository.getForkliftImageDownEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
 	}
-
-	public void moveToLocation(Item obj) throws InterruptedException {
+        
+        public void Move(MoveActionTypes moveAction)
+        {
+            switch(moveAction)
+            {
+                case RIGHT:
+                {
+                    gridX++;
+                    setEmptyRight();
+                    while (!moveX(gridX * rescaledX)) {}
+                    break;
+                }
+                case LEFT:
+                {
+                    gridX--;
+                    setEmptyLeft();
+                    while (!moveX(gridX * rescaledX)) {}
+                    break;
+                }
+                case BOTTOM:
+                {
+                    gridY++;
+                    setEmptyDown();
+                    while (!moveY(gridY * rescaledY)) {}
+                    break;
+                }    
+                 case TOP:
+                {
+                    gridY--;
+                    setEmptyTop();
+                    while (!moveY(gridY * rescaledY)) {}
+                    break;
+                }    
+            }
+        }
+        
+	/*public void moveToLocation(Item obj) throws InterruptedException {
 
 		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
 		int halfX = (int) (storehouse.getRacks()[obj.getRackNumber()].getLocationOnScreen().x - (Rack.SPACER / 1.3));
@@ -309,9 +348,9 @@ public class Cart extends JComponent {
 			setRight();
 		}
 		Thread.sleep(200);
-	}
+	}*/
 
-	public void moveToAnotherLocation(Item obj) {
+	/*public void moveToAnotherLocation(Item obj) {
 		int getX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().x;
 		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
 		int halfX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getHeight() / 2;
@@ -387,8 +426,9 @@ public class Cart extends JComponent {
 			while (!moveY(getY - boxY)) {
 			}
 		}
-	}
+	}*/
 
+        /*
 	public void getBack() {
 		int down = (int) (27 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
 		if (this.m_y > Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) {
@@ -411,8 +451,8 @@ public class Cart extends JComponent {
 		}
 		setEmptyRight();
 	}
-
-	public void moveToTrash() {
+*/
+	/*public void moveToTrash() {
 		int left = (int) (3 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
 		while (!this.moveY(0)) {
 		}
@@ -452,7 +492,7 @@ public class Cart extends JComponent {
 		setRight();
 		Thread.sleep(200);
 		setTop();
-		moveToTrash();
+//		moveToTrash();
 		setEmpty(true);
 		storehouse.deleteObject(obj);
 		setEmptyLeft();
@@ -495,5 +535,5 @@ public class Cart extends JComponent {
 		setEmptyRight();
 		storehouse.replaceObjects(obj1, obj2);
 		getBack();
-	}
+	}*/
 }

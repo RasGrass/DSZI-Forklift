@@ -95,18 +95,13 @@ public class CommandlinePanel extends JPanel {
 		Font font = commandArea.getFont();
 		commandArea.setFont(font.deriveFont(Font.TRUETYPE_FONT));
 		commandArea.append(info + System.lineSeparator());
-		//commandArea.setFont(font.deriveFont(Font.PLAIN));
-		try {
-			Forklift.playSound();
-		} catch (MalformedURLException ex) {
-			Logger.getLogger(CommandlinePanel.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		//commandArea.setFont(font.deriveFont(Font.PLAIN));		
 	}
 
 	public void processAction() {
 		if (!(commandLine.getText().equals(""))) {
 			command = commandLine.getText();
-			commandArea.append(command + System.lineSeparator() + NaturalLanguage.interpret(command) + System.lineSeparator());
+			//commandArea.append(command + System.lineSeparator() + NaturalLanguage.interpret(command) + System.lineSeparator());
 			System.out.println(command);
 			commandLine.setText("");
 

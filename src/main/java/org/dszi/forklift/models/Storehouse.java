@@ -8,7 +8,7 @@ import org.dszi.forklift.analiza.Criteria;
 
 public class Storehouse {
 
-	private List<Item> objects = new ArrayList<>();
+	private final List<Item> objects = new ArrayList<>();
 	public static Rack[] racks = new Rack[7];
 
 	/*public static Storehouse getStorehouse() {

@@ -22,7 +22,7 @@ public class NLTest {
         input[0] = "Znajdź obiekt w kolorze pomaranczowym";
         input[1] = "znajdz";
         
-        NaturalLanguage.objectAdded("skrzynia");
+     //   NaturalLanguage.objectAdded("skrzynia");
         input[2] = "Znajdź skrzynie";
         
         input[3] = "Usuń obiekt, którego id jest równe 4 .";
@@ -31,10 +31,10 @@ public class NLTest {
         input[6] = "Znajdz kwadrat.";
         input[7] = "Znajdz obiekt o wadze 5 kg";
         
-        NaturalLanguage.objectAdded("Opona");
+     //   NaturalLanguage.objectAdded("Opona");
         input[8] = "Znajdź opone";
         
-        for(int i = 0; i < n; i++)
-            System.out.println(NaturalLanguage.interpret(input[i]));
+   /*     for(int i = 0; i < n; i++)
+            System.out.println(NaturalLanguage.interpret(input[i]));*/
     }
 }

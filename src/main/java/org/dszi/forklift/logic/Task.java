@@ -1,23 +1,16 @@
 package org.dszi.forklift.logic;
 
-import org.dszi.forklift.models.Item;
+import org.dszi.forklift.models.ActionTypes;
+import org.dszi.forklift.models.MoveActionTypes;
 
-/**
- *
- * @author RasGrass
- */
-public class Task {
+public class Task
+{
+	//private Item[] objects = new Item[2];
+	private final ActionTypes _action;
+        private final MoveActionTypes _moveAction;
+	/*private int rack;
 
-	public static final int ACTION_TYPE_REPLACE = 5;
-	public static final int ACTION_TYPE_ADDANYWHERE = 4;
-	public static final int ACTION_TYPE_ADD = 3;
-	public static final int ACTION_TYPE_DELETE = 1;
-	public static final int ACTION_TYPE_MOVE = 2;
-	public static final int ACTION_TYPE_WAIT = 0;
-	private Item[] objects = new Item[2];
-	private int action;
-	private int rack;
-
+        
 	public int getRack() {
 		return rack;
 	}
@@ -27,13 +20,13 @@ public class Task {
 	}
 	private int shelf;
 
-	public Task(int actionType, Item obj1) {
+	public Task(ActionTypes actionType, Item obj1) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = null;
 	}
 
-	public Task(int actionType, Item obj1, int rack, int shelf) {
+	public Task(ActionTypes actionType, Item obj1, int rack, int shelf) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = null;
@@ -41,18 +34,14 @@ public class Task {
 		this.shelf = shelf;
 	}
 
-	public Task(int actionType, Item obj1, Item obj2) {
+	public Task(ActionTypes actionType, Item obj1, Item obj2) {
 		action = actionType;
 		objects[0] = obj1;
 		objects[1] = obj2;
-	}
-
-	public int getActionType() {
-		return action;
-	}
+	}	
 
 	public void waitNow() {
-		action = Task.ACTION_TYPE_WAIT;
+		action = ActionTypes.ACTION_TYPE_WAIT;
 	}
 
 	public Item getObject(int objectNumber) {
@@ -61,5 +50,18 @@ public class Task {
 		} else {
 			return objects[1];
 		}
+	}*/
+        
+        public Task(ActionTypes action, MoveActionTypes moveAction){
+            _action = action;
+            _moveAction = moveAction;
+        }
+        
+        public ActionTypes GetActionType() {
+		return _action;
+	}
+        
+         public MoveActionTypes GetMoveActionType() {
+		return _moveAction;
 	}
 }

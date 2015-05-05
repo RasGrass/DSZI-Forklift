@@ -172,6 +172,6 @@ public class Item extends JComponent {
 
 		super.setName(name);
 		scaleImage();
-		NaturalLanguage.objectAdded(name);
+		//NaturalLanguage.objectAdded(name);
 	}
 }
