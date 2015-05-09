@@ -132,10 +132,11 @@ public class Forklift extends Canvas {
 
 	public void loop() throws InterruptedException {
             TreeState ts = new TreeState();
-            grid.SetObject(new GridItem(), 3, 3);
+            /*grid.SetObject(new GridItem(), 3, 3);
              grid.SetObject(new GridItem(), 2, 3);
               grid.SetObject(new GridItem(), 1, 3);
-            for(MoveActionTypes action : ts.treesearch(grid,  new TreeItem(new Point(0,0), MoveActionTypes.RIGHT), new Point(3,4)))
+                    */
+            for(MoveActionTypes action : ts.treesearch(new TreeItem(new Point(0,0), MoveActionTypes.RIGHT), new Point(2,8), grid))
             {
                 gameLogic.AddTask(ActionTypes.ACTION_TYPE_MOVE_CARD, action);
             }

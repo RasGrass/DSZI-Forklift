@@ -8,6 +8,8 @@ package org.dszi.forklift.logic;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.MoveActionTypes;
 import org.dszi.forklift.models.TreeItem;
@@ -22,19 +24,17 @@ public class TreeState {
  // succ - funkcja następnika
  // goaltest - test spełnienia celu
  // f - funkcja "kosztu"
-public ArrayList<MoveActionTypes> treesearch(Grid grid, TreeItem startItem, Point destPoint)
+public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint, Grid grid)
 {
-    int deep = 100;
-    ArrayList<TreeItem> fringe = new ArrayList();
+    ArrayList<Point> points = new  ArrayList<>();
+    PriorityQueue<TreeItem> fringe = new PriorityQueue<>(1, idComparator);
+    startItem.SetPriority(0);
     fringe.add(startItem);
     
-    for(int i =0;i < deep;i++)
+    int step = 1;
+    while(!fringe.isEmpty())
     {
-       if(fringe.isEmpty())
-            return new ArrayList();
-
-        TreeItem elem = fringe.get(0);
-        fringe.remove(elem);
+       TreeItem elem = fringe.poll();
         
        if (goalTest(elem.GetPoint(), destPoint))
        {
@@ -52,22 +52,15 @@ public ArrayList<MoveActionTypes> treesearch(Grid grid, TreeItem startItem, Poin
        for (TreeItem item :successor(grid, elem))
        {
            item.SetParent(elem);   
-           Boolean exists = false;
+           item.SetPriority(step + heurestic(item.GetPoint(), destPoint));
            
-           for(TreeItem f:fringe)
+           if(!points.contains(item.GetPoint()))
            {
-               if(f.GetPoint().x == item.GetPoint().x && f.GetPoint().y == item.GetPoint().y)
-               {
-                   exists = true;
-                   break;
-               }
+               points.add(item.GetPoint());
+               fringe.add(item);
            }
-           
-           if(!exists)
-           {
-                fringe.add(item);
-           }
-       }    
+       } 
+      step++;
     }   
     
     return new ArrayList();
@@ -79,36 +72,29 @@ private Boolean goalTest(Point srcPoint, Point descPoint)
     return srcPoint.x == descPoint.x && srcPoint.y == descPoint.y;
 }
 
+private int heurestic(Point currentPoint, Point destPoint)
+{
+    int dx = Math.abs(currentPoint.x - destPoint.x);
+    int dy = Math.abs(currentPoint.y - destPoint.y);
+    
+    return dx+ dy;
+}
+
+   //Comparator anonymous class implementation
+    public static Comparator<TreeItem> idComparator = new Comparator<TreeItem>(){
+         
+        @Override
+        public int compare(TreeItem t1, TreeItem t2) {
+            return (int) (t1.GetPriority() - t2.GetPriority());
+        }
+    };
+
 private ArrayList<TreeItem> successor(Grid grid, TreeItem item)
 {
      ArrayList<TreeItem> actions = new ArrayList();
      Point point = item.GetPoint();
-     MoveActionTypes action = item.GetAction();
-     Boolean canRight = true;
-     Boolean canLeft = true;
-     Boolean canTop = true;
-     Boolean canBottom = true;
      
-     
-     if(action == MoveActionTypes.RIGHT)
-     {     
-         canLeft = false;
-     }
-     if(action == MoveActionTypes.LEFT)
-     {     
-         canRight = false;
-     }
-     if(action == MoveActionTypes.TOP)
-     {     
-         canBottom = false;
-     }
-     if(action == MoveActionTypes.BOTTOM)
-     {     
-         canTop = false;
-     }
-     
-     
-     if(canTop && point.y > 0)
+     if( point.y > 0)
          {           
             if(grid.GetObject(point.x, point.y - 1) == null)
             {
@@ -116,25 +102,23 @@ private ArrayList<TreeItem> successor(Grid grid, TreeItem item)
             }
          }
      
-      if(canLeft && point.x > 0)
+     if( point.x > 0)
      {
          if(grid.GetObject(point.x - 1, point.y) == null)
             {
                 actions.add(new TreeItem(new Point(point.x - 1 , point.y), MoveActionTypes.LEFT));
             }         
-     }
-   
+     }  
         
-     if(canRight && point.x < grid.GetWidth() - 1 )
+     if(point.x < grid.GetWidth() - 1 )
      {
          if(grid.GetObject(point.x + 1, point.y) == null)
             {
                 actions.add(new TreeItem(new Point(point.x + 1 , point.y), MoveActionTypes.RIGHT));
             }         
      }
-     
-      
-     if(canBottom && point.y < grid.GetHeight() - 1)
+           
+     if(point.y < grid.GetHeight() - 1)
          {           
             if(grid.GetObject(point.x, point.y +1) == null)
             {

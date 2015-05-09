@@ -15,6 +15,7 @@ public class TreeItem {
     private final Point _point;
     private final MoveActionTypes _action;
     private TreeItem _parent;
+    private int _priority;
     
     public TreeItem(Point point, MoveActionTypes action)
     {
@@ -40,5 +41,15 @@ public class TreeItem {
     public void SetParent(TreeItem item)
     {
         _parent = item;
+    }
+    
+    public void SetPriority(int priority)
+    {
+        _priority = priority;
+    }
+    
+    public int GetPriority()
+    {
+        return _priority;
     }
 }
