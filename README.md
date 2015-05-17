@@ -11,3 +11,5 @@
 * Engilish Inida Pale Ale - http://www.wiki.piwo.org/English_IPA
 * American Amber Ale - http://www.wiki.piwo.org/American_Amber_Ale
 * Blonde Ale - http://www.wiki.piwo.org/Blonde_Ale
+
+Ja Robie 3 ostatnie @S³awek
