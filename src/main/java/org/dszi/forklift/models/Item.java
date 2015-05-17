@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.JComponent;
-import org.dszi.forklift.analiza.NaturalLanguage;
 import org.dszi.forklift.repository.ImageRepository;
 
 /**
@@ -30,8 +29,7 @@ public class Item extends JComponent {
 	@Inject
 	private Storehouse storehouse;
 
-	@Inject
-	private ImageRepository imageRepository;
+	public  ImageRepository imageRepository;
 
 	public Item(String name, double weight, String color, String type) {
 		this.weight = weight;
@@ -39,7 +37,6 @@ public class Item extends JComponent {
 		this.color = color;
 		this.type = type;
 		this.ID = counter++;
-
 	}
 
 	public Item(String name, double weight, String color, String type, int place) {
@@ -150,13 +147,13 @@ public class Item extends JComponent {
 
 	private void scaleImage() {
 
-//		scaledImage = imageRepository.getObjectImage().getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
+		scaledImage = imageRepository.getObjectImage().getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
 	}
 
-	private void init() {
+	public void init() {
 		this.dim = new Dimension();
-		dim.width = (int) (dim.width / 1.925);
-		dim.height = (int) (dim.height / 5.814);
+		dim.width = 100;
+		dim.height = 100;
 
 //		setPreferredSize(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getSize());
 	//	setBounds(storehouse.getRacks()[rackNumber].getShelf(shelfNumber).getBoxes()[place].getBounds());
@@ -172,6 +169,5 @@ public class Item extends JComponent {
 
 		super.setName(name);
 		scaleImage();
-		//NaturalLanguage.objectAdded(name);
 	}
 }

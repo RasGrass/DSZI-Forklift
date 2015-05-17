@@ -19,19 +19,15 @@ import org.dszi.forklift.models.TreeItem;
  * @author Slawek
  */
 public class TreeState {
-    // fringe - struktura danych przechowująca wierzchołki do odwiedzenia
-// istate - stan początkowy
- // succ - funkcja następnika
- // goaltest - test spełnienia celu
- // f - funkcja "kosztu"
+
 public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint, Grid grid)
 {
     ArrayList<Point> points = new  ArrayList<>();
-    PriorityQueue<TreeItem> fringe = new PriorityQueue<>(1, idComparator);
+    PriorityQueue<TreeItem> fringe = new PriorityQueue<>(1,idComparator);
     startItem.SetPriority(0);
+    startItem.SetCost(0);
     fringe.add(startItem);
     
-    int step = 1;
     while(!fringe.isEmpty())
     {
        TreeItem elem = fringe.poll();
@@ -51,8 +47,9 @@ public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint
 
        for (TreeItem item :successor(grid, elem))
        {
-           item.SetParent(elem);   
-           item.SetPriority(step + heurestic(item.GetPoint(), destPoint));
+           item.SetParent(elem); 
+           item.SetCost(d(elem));
+           item.SetPriority(item.GetCost() + heurestic(item.GetPoint(), destPoint));
            
            if(!points.contains(item.GetPoint()))
            {
@@ -60,16 +57,19 @@ public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint
                fringe.add(item);
            }
        } 
-      step++;
     }   
     
     return new ArrayList();
 }
  
-
 private Boolean goalTest(Point srcPoint, Point descPoint)
 {
     return srcPoint.x == descPoint.x && srcPoint.y == descPoint.y;
+}
+
+private int d(TreeItem item)
+{
+    return item.GetCost() + 1;
 }
 
 private int heurestic(Point currentPoint, Point destPoint)
@@ -80,7 +80,6 @@ private int heurestic(Point currentPoint, Point destPoint)
     return dx+ dy;
 }
 
-   //Comparator anonymous class implementation
     public static Comparator<TreeItem> idComparator = new Comparator<TreeItem>(){
          
         @Override
@@ -128,5 +127,4 @@ private ArrayList<TreeItem> successor(Grid grid, TreeItem item)
      
      return actions;
 }
-
 }

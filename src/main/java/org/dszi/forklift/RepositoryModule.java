@@ -4,7 +4,9 @@ import com.google.inject.AbstractModule;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.dszi.forklift.logic.GameLogic;
+import org.dszi.forklift.logic.TreeState;
 import org.dszi.forklift.models.Cart;
+import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.Rack;
 import org.dszi.forklift.models.Shelf;
 import org.dszi.forklift.models.Storehouse;
@@ -29,6 +31,8 @@ public class RepositoryModule extends AbstractModule {
 		bind(Shelf.class).toInstance(new Shelf());
 		bind(Rack.class).toInstance(new Rack());
                 bind(GameLogic.class).asEagerSingleton();
+                bind(TreeState.class).asEagerSingleton();
+                bind(Grid.class).asEagerSingleton();
 
 	}
 }

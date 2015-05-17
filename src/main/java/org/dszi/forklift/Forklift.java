@@ -28,8 +28,11 @@ import org.dszi.forklift.logic.TreeState;
 import org.dszi.forklift.models.ActionTypes;
 import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.GridItem;
+import org.dszi.forklift.models.Item;
 import org.dszi.forklift.models.MoveActionTypes;
+import org.dszi.forklift.models.Rack;
 import org.dszi.forklift.models.TreeItem;
+import org.dszi.forklift.repository.ImageRepository;
 import org.dszi.forklift.ui.AddingForm;
 import org.dszi.forklift.ui.ItemListPanel;
 
@@ -73,7 +76,7 @@ public class Forklift extends Canvas {
 		this.forklift = injector.getInstance(Cart.class);
 		this.drawingPane = injector.getInstance(JPanel.class);
 		this.frame = injector.getInstance(JFrame.class);
-                this.grid = new Grid();
+                this.grid = injector.getInstance(Grid.class);
                 this.gameLogic = injector.getInstance(GameLogic.class);
 		setupComponents();
 	}
@@ -112,6 +115,7 @@ public class Forklift extends Canvas {
 		panel.add(drawingPane);
 		panel.setFocusable(true);
 		fillDrawingPane();
+                SetObstacles();
 		initFullscreen(frame);
 		initButtonPanel(buttonPanel);
 		myRepaintManager = new RepaintManager();
@@ -131,18 +135,9 @@ public class Forklift extends Canvas {
 	}
 
 	public void loop() throws InterruptedException {
-            TreeState ts = new TreeState();
-            /*grid.SetObject(new GridItem(), 3, 3);
-             grid.SetObject(new GridItem(), 2, 3);
-              grid.SetObject(new GridItem(), 1, 3);
-                    */
-            for(MoveActionTypes action : ts.treesearch(new TreeItem(new Point(0,0), MoveActionTypes.RIGHT), new Point(2,8), grid))
-            {
-                gameLogic.AddTask(ActionTypes.ACTION_TYPE_MOVE_CARD, action);
-            }
+           gameLogic.MoveToPoint(new Point(0,0), new Point(8,8));
 		while (isRunning) {
 			gameLogic.processLogic();
-			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		}
 	}
@@ -152,6 +147,11 @@ public class Forklift extends Canvas {
 		Thread.sleep(2000);
 		wozek.loop();
 	}
+        
+        private void SetObstacles()
+        {
+           
+        }
 
 	private void fillDrawingPane() {
 		drawingPane.setBackground(Color.LIGHT_GRAY);

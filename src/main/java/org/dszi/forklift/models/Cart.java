@@ -25,7 +25,7 @@ public class Cart extends JComponent {
         private int gridY;
 	private int m_x;
 	private int m_y;
-	private final int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 20;
+	private final int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 15;
 	private final int rescaledY = (int) Toolkit.getDefaultToolkit().getScreenSize().height / 15;
 	private boolean haveToMoveX = false;
 	private boolean haveToMoveY = false;
