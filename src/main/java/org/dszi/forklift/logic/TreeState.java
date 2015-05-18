@@ -9,7 +9,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.MoveActionTypes;
 import org.dszi.forklift.models.TreeItem;
@@ -22,8 +24,8 @@ public class TreeState {
 
 public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint, Grid grid)
 {
-    ArrayList<Point> points = new  ArrayList<>();
-    PriorityQueue<TreeItem> fringe = new PriorityQueue<>(1,idComparator);
+    List points = new  ArrayList<>();
+    Queue<TreeItem> fringe = new PriorityQueue<>(1,idComparator);
     startItem.SetPriority(0);
     startItem.SetCost(0);
     fringe.add(startItem);
@@ -48,7 +50,7 @@ public ArrayList<MoveActionTypes> treesearch(TreeItem startItem, Point destPoint
        for (TreeItem item :successor(grid, elem))
        {
            item.SetParent(elem); 
-           item.SetCost(d(elem));
+           item.SetCost(cost(elem));
            item.SetPriority(item.GetCost() + heurestic(item.GetPoint(), destPoint));
            
            if(!points.contains(item.GetPoint()))
@@ -67,7 +69,7 @@ private Boolean goalTest(Point srcPoint, Point descPoint)
     return srcPoint.x == descPoint.x && srcPoint.y == descPoint.y;
 }
 
-private int d(TreeItem item)
+private int cost(TreeItem item)
 {
     return item.GetCost() + 1;
 }
@@ -88,9 +90,9 @@ private int heurestic(Point currentPoint, Point destPoint)
         }
     };
 
-private ArrayList<TreeItem> successor(Grid grid, TreeItem item)
+private List<TreeItem> successor(Grid grid, TreeItem item)
 {
-     ArrayList<TreeItem> actions = new ArrayList();
+     List<TreeItem> actions = new ArrayList();
      Point point = item.GetPoint();
      
      if( point.y > 0)

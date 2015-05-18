@@ -150,7 +150,7 @@ public class Forklift extends Canvas {
         
         private void SetObstacles()
         {
-           
+            grid.SetObject(new GridItem(), 3, 3);
         }
 
 	private void fillDrawingPane() {

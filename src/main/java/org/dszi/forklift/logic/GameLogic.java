@@ -40,15 +40,7 @@ public class GameLogic {
 */
         public void MoveToPoint(Point startPoint, Point destPoint)
         {
-           /* grid.SetObject(new GridItem(), 3, 3);
-             grid.SetObject(new GridItem(), 2, 3);
-              grid.SetObject(new GridItem(), 1, 3);*/
-            
-           /* _grid.SetObject(new GridItem(), 1, 0);
-              _grid.SetObject(new GridItem(), 8, 7);
-              _grid.SetObject(new GridItem(), 9, 7);
-              _grid.SetObject(new GridItem(), 10, 7);
-              _grid.SetObject(new GridItem(), 11, 7);*/
+         
                    
             for(MoveActionTypes action : _treeState.treesearch(new TreeItem(startPoint, MoveActionTypes.RIGHT), destPoint, _grid))
             {
