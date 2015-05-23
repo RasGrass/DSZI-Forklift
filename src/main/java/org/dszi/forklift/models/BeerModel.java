@@ -16,11 +16,21 @@ public class BeerModel {
 
 	private List<? extends BeerIngredient> otherIngredients;
 
-	private int alcoholPercentage;
+	private double alcoholPercentage;
 
-	private int ibu;
+	private double ibu;
 
-	private int extractPercentage;
+	private double extractPercentage;
+	
+	private String species;
+
+	public String getSpecies() {
+		return species;
+	}
+
+	public void setSpecies(String species) {
+		this.species = species;
+	}
 
 	private BeerModel() {
 
@@ -42,21 +52,21 @@ public class BeerModel {
 		return otherIngredients;
 	}
 
-	public int getAlcoholPercentage() {
+	public double getAlcoholPercentage() {
 		return alcoholPercentage;
 	}
 
-	public int getIbu() {
+	public double getIbu() {
 		return ibu;
 	}
 
-	public int getExtractPercentage() {
+	public double getExtractPercentage() {
 		return extractPercentage;
 	}
 
 	public static class Builder {
 
-		private BeerModel beer;
+		private final BeerModel beer;
 
 		public Builder() {
 			beer = new BeerModel();
@@ -82,17 +92,17 @@ public class BeerModel {
 			return this;
 		}
 
-		public Builder withAlcoholPercentage(int percentage) {
+		public Builder withAlcoholPercentage(double percentage) {
 			beer.alcoholPercentage = percentage;
 			return this;
 		}
 
-		public Builder withIbu(int ibu) {
+		public Builder withIbu(double ibu) {
 			beer.ibu = ibu;
 			return this;
 		}
 
-		public Builder withExtractPercentage(int percentage) {
+		public Builder withExtractPercentage(double percentage) {
 			beer.extractPercentage = percentage;
 			return this;
 		}

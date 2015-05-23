@@ -1,5 +1,7 @@
 package org.dszi.forklift.models;
 
+import org.dszi.forklift.logic.MoveActionTypes;
+import org.dszi.forklift.repository.Storehouse;
 import com.google.inject.Inject;
 import java.awt.AWTEvent;
 import java.awt.Dimension;
@@ -20,9 +22,9 @@ import javax.swing.RepaintManager;
 import org.dszi.forklift.repository.ImageRepository;
 
 public class Cart extends JComponent {
-        
-        private int gridX;
-        private int gridY;
+
+	private int gridX;
+	private int gridY;
 	private int m_x;
 	private int m_y;
 	private final int rescaledX = (int) Toolkit.getDefaultToolkit().getScreenSize().width / 15;
@@ -52,13 +54,11 @@ public class Cart extends JComponent {
 	private boolean empty_top = false;
 	private boolean empty_down = false;
 
-	private JPanel drawingPane;
+	private final JPanel drawingPane;
 
-	private Storehouse storehouse;
+	private final Storehouse storehouse;
 
-	//private Trash trash;
-
-	private ImageRepository imageRepository;
+	private final ImageRepository imageRepository;
 
 	@Inject
 	public Cart(Storehouse storehouse, ImageRepository imageRepository, JPanel drawingPane) {
@@ -70,8 +70,8 @@ public class Cart extends JComponent {
 		setPreferredSize(new Dimension(rescaledX + 100, rescaledY + 50));
 		m_x = 0;
 		m_y = 0;
-                gridX = 0;
-                gridY = 0;
+		gridX = 0;
+		gridY = 0;
 		setBounds((int) m_x, (int) m_y, rescaledX + 200, rescaledY + 200);
 		setLocation((int) m_x, (int) m_y);
 		setToolTipText("Wozek widłowy");
@@ -283,257 +283,37 @@ public class Cart extends JComponent {
 		scaledImage_empty_top = imageRepository.getForkliftImageUpEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
 		scaledImage_empty_down = imageRepository.getForkliftImageDownEmpty().getScaledInstance(rescaledY, rescaledX, Image.SCALE_SMOOTH);
 	}
-        
-        public void Move(MoveActionTypes moveAction)
-        {
-            switch(moveAction)
-            {
-                case RIGHT:
-                {
-                    gridX++;
-                    setEmptyRight();
-                    while (!moveX(gridX * rescaledX)) {}
-                    break;
-                }
-                case LEFT:
-                {
-                    gridX--;
-                    setEmptyLeft();
-                    while (!moveX(gridX * rescaledX)) {}
-                    break;
-                }
-                case BOTTOM:
-                {
-                    gridY++;
-                    setEmptyDown();
-                    while (!moveY(gridY * rescaledY)) {}
-                    break;
-                }    
-                 case TOP:
-                {
-                    gridY--;
-                    setEmptyTop();
-                    while (!moveY(gridY * rescaledY)) {}
-                    break;
-                }    
-            }
-        }
-        
-	/*public void moveToLocation(Item obj) throws InterruptedException {
 
-		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
-		int halfX = (int) (storehouse.getRacks()[obj.getRackNumber()].getLocationOnScreen().x - (Rack.SPACER / 1.3));
-		int boxY = (int) (storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
-
-		if ((m_x + 5) > (halfX) && (m_x - 5) < (halfX)) {
-			if (empty) {
+	public void Move(MoveActionTypes moveAction) {
+		switch (moveAction) {
+			case RIGHT: {
+				gridX++;
+				setEmptyRight();
+				while (!moveX(gridX * rescaledX)) {
+				}
+				break;
+			}
+			case LEFT: {
+				gridX--;
+				setEmptyLeft();
+				while (!moveX(gridX * rescaledX)) {
+				}
+				break;
+			}
+			case BOTTOM: {
+				gridY++;
 				setEmptyDown();
-			} else {
-				setDown();
-			}
-		} else {
-			while (!moveX(halfX)) {
-			}
-			if (empty) {
-				setEmptyDown();
-			} else {
-				setDown();
-			}
-		}
-		while (!moveY(getY - boxY)) {
-		}
-		if (empty) {
-			setEmptyRight();
-		} else {
-			setRight();
-		}
-		Thread.sleep(200);
-	}*/
-
-	/*public void moveToAnotherLocation(Item obj) {
-		int getX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().x;
-		int getY = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getBoxXY().y;
-		int halfX = storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getHeight() / 2;
-		int boxY = (int) (storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder() / 2);
-		int down = (int) (27 * storehouse.getRacks()[obj.getRackNumber()].getShelf(obj.getShelfNumber()).getBoxes()[obj.getPlace()].getYBorder());
-
-		if ((m_x + 5) > (getX - halfX) && (m_x - 5) < (getX - halfX)) {
-			if (m_y < (getY - boxY)) {
-				if (empty) {
-					setEmptyDown();
-				} else {
-					setDown();
+				while (!moveY(gridY * rescaledY)) {
 				}
-			} else {
-				if (empty) {
-					setEmptyTop();
-				} else {
-					setTop();
+				break;
+			}
+			case TOP: {
+				gridY--;
+				setEmptyTop();
+				while (!moveY(gridY * rescaledY)) {
 				}
+				break;
 			}
-			while (!moveY(getY - boxY)) {
-			}
-		} else {
-			if (m_y > Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) //nie jestem pewien
-			{
-				if (empty) {
-					setEmptyDown();
-				} else {
-					setDown();
-				}
-				while (!moveY(down)) {
-				} //nie iwem jak to obliczyć
-			} else {
-				if (empty) {
-					setEmptyTop();
-				} else {
-					setTop();
-				}
-				while (!moveY(0)) {
-				}
-			}
-
-			if (m_x > (getX - halfX)) {
-				if (empty) {
-					setEmptyLeft();
-				} else {
-					setLeft();
-				}
-			} else {
-				if (empty) {
-					setEmptyRight();
-				} else {
-					setRight();
-				}
-			}
-			while (!moveX(getX - halfX)) {
-			}
-
-			if (m_y < (getY - boxY)) {
-				if (empty) {
-					setEmptyDown();
-				} else {
-					setDown();
-				}
-			} else {
-				if (empty) {
-					setEmptyTop();
-				} else {
-					setTop();
-				}
-			}
-
-			while (!moveY(getY - boxY)) {
-			}
-		}
-	}*/
-
-        /*
-	public void getBack() {
-		int down = (int) (27 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
-		if (this.m_y > Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) {
-			setEmptyDown();
-			while (!this.moveY(down)) {
-			}
-			setEmptyLeft();
-			while (!this.moveX(0)) {
-			}
-			setEmptyTop();
-			while (!this.moveY(0)) {
-			}
-		} else {
-			setEmptyTop();
-			while (!this.moveY(0)) {
-			}
-			setEmptyLeft();
-			while (!this.moveX(0)) {
-			}
-		}
-		setEmptyRight();
-	}
-*/
-	/*public void moveToTrash() {
-		int left = (int) (3 * storehouse.getRacks()[0].getShelf(0).getBoxes()[0].getYBorder());
-		while (!this.moveY(0)) {
-		}
-		setRight();
-		while (!this.moveX(trash.getX() - left)) {
 		}
 	}
-
-	public void add(Item obj, int rack, int shelf) throws InterruptedException {
-		storehouse.addObjectSpecifically(obj, rack, shelf);
-		setEmpty(false);
-		setRight();
-		obj.setVisible(false);
-		moveToLocation(obj);
-		setEmpty(true);
-		obj.setVisible(true);
-		Thread.sleep(200);
-		getBack();
-	}
-
-	public void add(Item obj) throws InterruptedException {
-		storehouse.addObjectAnywhere(obj);
-		setEmpty(false);
-		setRight();
-		obj.setVisible(false);
-		moveToLocation(obj);
-		setEmpty(true);
-		obj.setVisible(true);
-		Thread.sleep(200);
-		getBack();
-	}
-
-	public void delete(Item obj) throws InterruptedException {
-		moveToLocation(obj);
-		obj.setVisible(false);
-		setEmpty(false);
-		setRight();
-		Thread.sleep(200);
-		setTop();
-//		moveToTrash();
-		setEmpty(true);
-		storehouse.deleteObject(obj);
-		setEmptyLeft();
-		getBack();
-	}
-
-	public void replace(Item obj, int rack, int shelf) throws InterruptedException {
-		moveToLocation(obj);
-		obj.setVisible(false);
-		setEmpty(false);
-		setRight();
-		Thread.sleep(200);
-		storehouse.replaceObject(rack, shelf, obj);
-		moveToAnotherLocation(obj);
-		setRight();
-		Thread.sleep(200);
-		obj.setVisible(true);
-		setEmpty(true);
-		setEmptyRight();
-		getBack();
-	}
-
-	//źle działa
-	public void replace(Item obj1, Item obj2) throws InterruptedException {
-		moveToLocation(obj1);
-		obj1.setVisible(false);
-		setEmpty(false);
-		setRight();
-		moveToAnotherLocation(obj2);
-		setRight();
-		Thread.sleep(200);
-		obj2.setVisible(false);
-		Thread.sleep(200);
-		obj2.setVisible(true);
-		moveToAnotherLocation(obj1);
-		setRight();
-		Thread.sleep(200);
-		obj1.setVisible(true);
-		setEmpty(true);
-		setEmptyRight();
-		storehouse.replaceObjects(obj1, obj2);
-		getBack();
-	}*/
 }

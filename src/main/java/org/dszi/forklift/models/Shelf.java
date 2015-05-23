@@ -1,5 +1,6 @@
 package org.dszi.forklift.models;
 
+import org.dszi.forklift.repository.Storehouse;
 import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,7 +20,6 @@ import org.dszi.forklift.repository.ImageRepository;
  */
 public class Shelf extends JComponent {
 
-	private ArrayList<Item> objOnShelf = new ArrayList(5);
 	private int objectCount = 0;
 	private Image scaledImage;
 	private boolean left = false;
@@ -38,20 +38,6 @@ public class Shelf extends JComponent {
 
 	public class Box extends JComponent {
 
-		private Item object;// = new Item();
-
-		public void setObject(Item obj) {
-			object = obj;
-		}
-
-		public void removeObject() {
-			object = null;
-		}
-
-		public Item getObject() {
-			return object;
-		}
-
 		public Point getBoxXY() {
 			//Box.this.setVisible(true);
 			if (mainFrame.isVisible()) {
@@ -63,10 +49,6 @@ public class Shelf extends JComponent {
 
 		public int getYBorder() {
 			return getSize().height;
-		}
-
-		public boolean isEmpty() {
-			return object == null;
 		}
 
 		public Box() {
@@ -81,8 +63,8 @@ public class Shelf extends JComponent {
 		// setLayout(new BorderLayout());
 		setPreferredSize(new Dimension((int) (Rack.RACK_WIDTH), (int) ((Rack.RACK_HEIGHT) / 5)));
 		setBounds(0, 0, (int) Rack.RACK_WIDTH, (int) (Rack.RACK_HEIGHT / 5));
-		ToolTipManager.sharedInstance().registerComponent(this);
-		System.out.println(getPreferredSize());
+		//ToolTipManager.sharedInstance().registerComponent(this);
+		//System.out.println(getPreferredSize());
 		ToolTipManager.sharedInstance().setEnabled(true);
 		setToolTipText("Shelf");
 		if (left) {
@@ -119,51 +101,8 @@ public class Shelf extends JComponent {
 		g2d.drawImage(scaledImage, 0, 0, null);
 	}
 
-	public void assingObject(Item obj) {
-		scaleImage();
-
-		objectCount++;
-		objOnShelf.add(obj);
-
-		storehouse.getObjects().add(obj);
-		boxes[obj.getPlace()].setObject(obj);
-		boxes[obj.getPlace()].add(obj);
-		RepaintManager.currentManager(this).markCompletelyDirty(obj);
-
-	}
-
-	public void removeObject(Item obj) {
-		objOnShelf.remove(obj);
-		storehouse.getObjects().remove(obj);
-		RepaintManager.currentManager(this).markCompletelyDirty(obj);
-		boxes[obj.getPlace()].removeObject();
-		boxes[obj.getPlace()].remove(obj);
-		objectCount--;
-
-	}
-
 	public Box[] getBoxes() {
 		return boxes;
-	}
-
-	@Override
-	public String toString() {
-		String command = "";
-		if (objectCount == 0) {
-			command += "No objects on this shelf..." + System.lineSeparator();
-		} else {
-			for (int i = 0; i < objectCount; i++) {
-
-				command += "ID: " + objOnShelf.get(i).getID() + System.lineSeparator()
-						+ "Name: " + objOnShelf.get(i).getName() + System.lineSeparator()
-						+ "Weight: " + objOnShelf.get(i).getWeight() + System.lineSeparator()
-						+ "Color: " + objOnShelf.get(i).getColor() + System.lineSeparator()
-						+ "Type: " + objOnShelf.get(i).getType() + System.lineSeparator()
-						+ "==============" + System.lineSeparator();
-			}
-		}
-
-		return command;
 	}
 
 	private void scaleImage() {

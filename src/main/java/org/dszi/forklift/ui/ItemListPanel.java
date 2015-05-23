@@ -1,7 +1,7 @@
 package org.dszi.forklift.ui;
 
 import com.google.inject.Inject;
-import org.dszi.forklift.models.Storehouse;
+import org.dszi.forklift.repository.Storehouse;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.dszi.forklift.Forklift;
 
 /**
  *
@@ -32,14 +33,13 @@ public class ItemListPanel extends JPanel {
 	private final String[] rowNames;
 	private JScrollPane table;
 
-	private final Storehouse storehouse;
-
 	@Inject
-	public ItemListPanel(Storehouse storehouse) {
+	private Storehouse storehouse;
+
+	public ItemListPanel() {
 		super();
-		this.storehouse = storehouse;
 		this.panelSize = Toolkit.getDefaultToolkit().getScreenSize();
-		this.rowNames = new String[]{"ID", "Nazwa", "Ciężar", "Kolor", "Typ"};
+		this.rowNames = new String[]{"Chmiele", "Słody", "Drożdże", "IBU", "Alkohol", "Ekstrakt"};
 		int temp;
 		temp = (int) (panelSize.width / 1.5);
 		panelSize.width = panelSize.width - temp;
@@ -54,37 +54,44 @@ public class ItemListPanel extends JPanel {
 	}
 
 	private void initTable() {
-		model = new DefaultTableModel(storehouse._getObjects(), rowNames) {
-			@Override
-			public boolean isCellEditable(int cell, int column) {
-				return false;
-			}
-		};
-		model.setRowCount(storehouse.getObjects().size());
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+
 		cellRenderer.setHorizontalTextPosition(DefaultTableCellRenderer.CENTER);
 		cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+		storehouse = Forklift.getInjector().getInstance(Storehouse.class);
+		if (storehouse == null) {
+			model = new DefaultTableModel();
+		} else {
+			model = new DefaultTableModel(storehouse._getBeers(), rowNames) {
+				@Override
+				public boolean isCellEditable(int cell, int column) {
+					return false;
+				}
+			};
 
-		objectTable = new JTable(model);
-		objectTable.setBackground(Color.LIGHT_GRAY);
-		objectTable.setIntercellSpacing(new Dimension(3, 5));
-		objectTable.setRowHeight(50);
-		objectTable.setColumnSelectionAllowed(false);
-		objectTable.setDragEnabled(false);
-		objectTable.setRowMargin(30);
+			objectTable = new JTable(model);
+			objectTable.setBackground(Color.LIGHT_GRAY);
+			objectTable.setIntercellSpacing(new Dimension(3, 5));
+			objectTable.setRowHeight(150);
+			objectTable.setColumnSelectionAllowed(false);
+			objectTable.setDragEnabled(false);
+			objectTable.setRowMargin(30);
 
-		//System.out.println(Forklift.getStroehouse().toString());
-		TableColumn col1 = objectTable.getColumnModel().getColumn(0);
-		TableColumn col2 = objectTable.getColumnModel().getColumn(1);
-		TableColumn col3 = objectTable.getColumnModel().getColumn(2);
-		TableColumn col4 = objectTable.getColumnModel().getColumn(3);
-		TableColumn col5 = objectTable.getColumnModel().getColumn(4);
+			model.setRowCount(storehouse.getBeers().size());
+			TableColumn col1 = objectTable.getColumnModel().getColumn(0);
+			TableColumn col2 = objectTable.getColumnModel().getColumn(1);
+			TableColumn col3 = objectTable.getColumnModel().getColumn(2);
+			TableColumn col4 = objectTable.getColumnModel().getColumn(3);
+			TableColumn col5 = objectTable.getColumnModel().getColumn(4);
+			TableColumn col6 = objectTable.getColumnModel().getColumn(5);
 
-		col1.setCellRenderer(cellRenderer);
-		col2.setCellRenderer(cellRenderer);
-		col3.setCellRenderer(cellRenderer);
-		col4.setCellRenderer(cellRenderer);
-		col5.setCellRenderer(cellRenderer);
+			col1.setCellRenderer(cellRenderer);
+			col2.setCellRenderer(cellRenderer);
+			col3.setCellRenderer(cellRenderer);
+			col4.setCellRenderer(cellRenderer);
+			col5.setCellRenderer(cellRenderer);
+			col6.setCellRenderer(cellRenderer);
+		}
 
 		objectTable.setOpaque(true);
 		objectTable.setShowVerticalLines(false);
@@ -118,11 +125,7 @@ public class ItemListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				objectTable.invalidate();
 				while (objectTable.getSelectedRows().length > 0) {
-					int selectedRowsCount = objectTable.getSelectedRows().length;
 					int[] selectedRows = objectTable.getSelectedRows();
-					int id = Integer.parseInt((String) model.getValueAt(selectedRows[0], 0));
-					System.out.println("usuwam" + storehouse.find(id).toString());
-					storehouse.deleteObject(storehouse.find(id));
 					model.removeRow(selectedRows[0]);
 				}
 			}
@@ -131,7 +134,6 @@ public class ItemListPanel extends JPanel {
 		add(southButtonPanel, BorderLayout.SOUTH);
 		setVisible(true);
 		southButtonPanel.setVisible(true);
-		//System.out.println(southButtonPanel.getSize().width);
 		southButtonPanel.setLayout(new GridLayout(1, 2, southButtonPanel.getSize().width / 3, 30));
 	}
 }

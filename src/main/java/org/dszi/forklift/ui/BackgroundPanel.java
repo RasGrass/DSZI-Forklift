@@ -1,6 +1,5 @@
 package org.dszi.forklift.ui;
 
-import org.dszi.forklift.models.Item;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -130,17 +129,6 @@ public class BackgroundPanel extends JPanel {
 		} else {
 			return new Dimension(image.getWidth(null), image.getHeight(null));
 		}
-	}
-
-	/*
-	 *  Override method so we can make the component transparent
-	 */
-	public void add(JComponent component, Item constraints) {
-		if (isTransparentAdd) {
-			makeComponentTransparent(component);
-		}
-
-		super.add(component, constraints);
 	}
 
 	/*

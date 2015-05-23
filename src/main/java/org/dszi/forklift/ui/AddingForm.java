@@ -1,7 +1,5 @@
 package org.dszi.forklift.ui;
 
-import com.google.inject.Inject;
-import org.dszi.forklift.models.Item;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,168 +10,218 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
-import org.dszi.forklift.models.Storehouse;
+import org.dszi.forklift.Forklift;
+import org.dszi.forklift.models.BeerIngredient;
+import org.dszi.forklift.models.BeerModel;
+import org.dszi.forklift.models.FermentationType;
+import org.dszi.forklift.models.GenericBeerIngredient;
+import org.dszi.forklift.models.HopModel;
+import org.dszi.forklift.models.MaltModel;
+import org.dszi.forklift.repository.Storehouse;
+import org.dszi.forklift.models.YeastModel;
 import org.dszi.forklift.utils.SpringUtilities;
-//import javax.swing.SpringUtilities;
 
 public class AddingForm extends JPanel {
 
 	private final Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private final List<String> savedNames;
-	private final String randomChoice = " < Losowo > ";
 	private final String[] labels;
 	private final int numPairs;
-	private final JPanel p;
+	private final JPanel panel;
 	private final JComboBox[] comboBoxes;
+	private final JTextField[] textFields;
+
 	private final JButton send;
 	private final JButton cancel;
-	private final String[] colors;
-	private final String[] types;
-	private final Random rand;
+	private final String[] hops;
+	private final String[] malts;
 
-	@Inject
-	private Storehouse storehouse;
+	private final Storehouse storehouse;
+	private final String[] yeasts;
+	private final String[] listLabels;
+
+	private final int numberOfMalts = 3;
+	private final int numberOfHops = 3;
+	private final int numberOfYeats = 3;
 
 	public AddingForm() {
-		this.rand = new Random();
-		this.types = new String[]{"Prostokąt", "Kwadrat", "Koło", "Trójkąt", "Gwiazda"};
-		this.colors = new String[]{"czerwony", "zielony", "niebieski", "czarny", "żółty"};
+		this.malts = new String[]{"Brak", "Pale Ale", "Palony", "Pilzneński", "Karmelowy", "Pszeniczny"};
+		this.hops = new String[]{"Brak", "USA", "Czeski", "Anglielski", "Niemiecki", "Polski"};
+		this.yeasts = new String[]{"Brak", "Górnej fermentacji", "Dolnej fermentacji"};
+
 		this.cancel = new JButton("Anuluj");
 		this.send = new JButton("Dodaj");
-		this.p = new JPanel(new SpringLayout());
-		this.comboBoxes = new JComboBox[4];
-		this.labels = new String[]{"Nazwa: ", "Ciężar: ", "Kolor: ", "Typ: "};
+		this.panel = new JPanel(new SpringLayout());
+		this.comboBoxes = new JComboBox[9];
+		this.listLabels = new String[]{"Chmiel", "Słód", "Drożdże"};
+		this.labels = new String[]{"Inny składnik 1", "Inny składnik 2", "IBU", "Alkohol", "Ekstrakt"};
 		this.numPairs = labels.length;
-		this.savedNames = new ArrayList<>();
+		this.textFields = new JTextField[labels.length];
+		this.storehouse = Forklift.getInjector().getInstance(Storehouse.class);
 		initPanel();
 		initComponents();
 		setUpComponents();
 		setUpMouseListeners();
 		setUpActionListeners();
-
 	}
 
-	private boolean isNameDistinct() {
-		boolean isDistinct = true;
-		if (!savedNames.isEmpty()) {
-			for (String savedName : savedNames) {
-				if (savedName.equals(comboBoxes[0].getSelectedItem())) {
-					isDistinct = false;
-				}
+	private BeerModel addObjectUsingForm() throws NumberFormatException {
+		int ibu;
+		double alcohol;
+		double extract;
+		try {
+			ibu = Integer.parseInt(textFields[2].getText());
+
+		} catch (NumberFormatException e) {
+			textFields[2].setForeground(Color.red);
+			textFields[2].setText("Must be a number");
+			return null;
+
+		}
+		try {
+			alcohol = Double.parseDouble(textFields[3].getText());
+
+		} catch (NumberFormatException e) {
+			textFields[3].setForeground(Color.red);
+			textFields[3].setText("Must be a number");
+
+			return null;
+		}
+		try {
+			extract = Double.parseDouble(textFields[4].getText());
+
+		} catch (NumberFormatException e) {
+			textFields[4].setForeground(Color.red);
+			textFields[4].setText("Must be a number");
+
+			return null;
+		}
+
+		List<HopModel> selectedHops = new ArrayList();
+		List<MaltModel> selectedMalts = new ArrayList();
+		List<YeastModel> selectedYeasts = new ArrayList();
+		List<BeerIngredient> otherSelectedingredients = new ArrayList();
+
+		for (int i = 0; i < numberOfHops; i++) {
+			selectedHops.add(new HopModel("", (String) comboBoxes[i].getSelectedItem()));
+		}
+
+		for (int i = numberOfHops; i < numberOfHops + numberOfMalts; i++) {
+			selectedMalts.add(new MaltModel("", (String) comboBoxes[i].getSelectedItem()));
+		}
+
+		for (int i = numberOfHops + numberOfMalts; i < numberOfHops + numberOfMalts + numberOfYeats; i++) {
+			if (comboBoxes[i].getSelectedItem().equals("Dolnej fermentacji")) {
+				selectedYeasts.add(new YeastModel("", FermentationType.BOTTOM_FERMENTATION));
+
+			} else {
+				selectedYeasts.add(new YeastModel("", FermentationType.TOP_FERMENTATION));
 			}
 		}
-		return isDistinct;
-	}
+		otherSelectedingredients.add(new GenericBeerIngredient(textFields[0].getText()));
+		otherSelectedingredients.add(new GenericBeerIngredient(textFields[1].getText()));
 
-	private void addName(boolean isDistinct) {
-		if ((!comboBoxes[0].getSelectedItem().toString().equals(randomChoice)) && isDistinct) {
-			savedNames.add(comboBoxes[0].getSelectedItem().toString());
-		}
-	}
+		BeerModel beer = new BeerModel.Builder().
+				withSetOfHops(selectedHops).
+				withSetOfMalts(selectedMalts).
+				withSetOfYeasts(selectedYeasts).
+				withSetOfOtherIngredients(otherSelectedingredients).
+				withAlcoholPercentage(alcohol).
+				withIbu(ibu).
+				withExtractPercentage(extract).
+				build();
 
-	private void addObjectUsingForm() throws NumberFormatException {
-		boolean randomColor = comboBoxes[2].getSelectedItem().equals(randomChoice);
-		boolean randomWeight = comboBoxes[1].getSelectedItem().equals(randomChoice);
-		boolean randomType = comboBoxes[3].getSelectedItem().equals(randomChoice);
-		boolean randomName = comboBoxes[0].getSelectedItem().equals(randomChoice);
+		return beer;
 
-		Item obj = new Item(
-				randomName ? "Obiekt" + rand.nextInt(200) : comboBoxes[0].getSelectedItem().toString(),
-				randomWeight ? randomizeWeight() : Double.parseDouble(comboBoxes[1].getSelectedItem().toString()),
-				randomColor ? randomizeColor() : parseColor(comboBoxes[2].getSelectedItem().toString()),
-				randomType ? randomizeType() : comboBoxes[3].getSelectedItem().toString());
-
-		storehouse.addObjectAnywhere(obj);
-		System.out.println(obj.getShelfNumber());
-		System.out.println(obj.getRackNumber());
-	}
-
-	private void refreshNameList() {
-		if (!savedNames.isEmpty()) {
-			comboBoxes[0].removeAllItems();
-			comboBoxes[0].addItem(randomChoice);
-			for (String savedName : savedNames) {
-				comboBoxes[0].addItem(savedName);
-			}
-		}
 	}
 
 	private void initPanel() {
-		int temp;
-		temp = (int) (panelSize.width / 1.5);
-		panelSize.width = panelSize.width - temp;
 		setPreferredSize(panelSize);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setBackground(Color.LIGHT_GRAY);
 	}
 
 	private void initComponents() {
-		for (int i = 0; i < numPairs; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			p.add(l);
+
+		int j = 1;
+
+		for (int i = 0; i < listLabels.length; i++) {
+			JLabel l = new JLabel(listLabels[0] + " " + j, JLabel.TRAILING);
+			panel.add(l);
 			comboBoxes[i] = new JComboBox();
 			l.setLabelFor(comboBoxes[i]);
-			p.add(comboBoxes[i]);
+			panel.add(comboBoxes[i]);
+			j++;
 		}
+		j = 1;
+
+		for (int i = numberOfHops; i < numberOfHops + numberOfMalts; i++) {
+
+			JLabel l = new JLabel(listLabels[1] + " " + j, JLabel.TRAILING);
+			panel.add(l);
+			comboBoxes[i] = new JComboBox();
+			l.setLabelFor(comboBoxes[i]);
+			panel.add(comboBoxes[i]);
+			j++;
+
+		}
+		j = 1;
+
+		for (int i = numberOfHops + numberOfMalts; i < numberOfHops + numberOfMalts + numberOfYeats; i++) {
+			JLabel l = new JLabel(listLabels[2] + " " + j, JLabel.TRAILING);
+			panel.add(l);
+			comboBoxes[i] = new JComboBox();
+			l.setLabelFor(comboBoxes[i]);
+			panel.add(comboBoxes[i]);
+			j++;
+		}
+
+		for (int c = 0; c < numPairs; c++) {
+			JLabel l = new JLabel(labels[c], JLabel.TRAILING);
+			panel.add(l);
+			textFields[c] = new JTextField();
+			l.setLabelFor(textFields[c]);
+			panel.add(textFields[c]);
+		}
+
 	}
 
 	private void setUpComponents() {
-		if (!savedNames.isEmpty()) {
-			comboBoxes[0].removeAllItems();
-			comboBoxes[0].addItem(randomChoice);
-			for (String savedName : savedNames) {
-				comboBoxes[0].addItem(savedName);
+		int comboBoxesCounter = 0;
+		String[] items;
+		for (JComboBox comboBox : comboBoxes) {
+			if (comboBoxesCounter < numberOfHops) {
+				items = hops;
+			} else if (comboBoxesCounter >= numberOfHops && comboBoxesCounter < numberOfHops + numberOfMalts) {
+				items = malts;
+			} else {
+				items = yeasts;
 			}
-		} else {
-			comboBoxes[0].addItem(randomChoice);
-
+			for (String item : items) {
+				comboBox.addItem(item);
+			}
+			comboBoxesCounter++;
 		}
 
-		comboBoxes[0].setEditable(true);
+		panel.add(send);
+		panel.add(cancel);
+		panel.setBackground(Color.LIGHT_GRAY);
 
-		comboBoxes[1].addItem(randomChoice);
-		comboBoxes[1].addItem("0.5");
-		comboBoxes[1].addItem("1");
-		comboBoxes[1].addItem("2");
-		comboBoxes[1].addItem("3");
-		comboBoxes[1].addItem("4");
-		comboBoxes[1].addItem("5");
-		comboBoxes[1].setEditable(true);
-
-		comboBoxes[2].addItem(randomChoice);
-		comboBoxes[2].addItem("Zielony");
-		comboBoxes[2].addItem("Czerwony");
-		comboBoxes[2].addItem("Niebieski");
-		comboBoxes[2].addItem("Żółty");
-		comboBoxes[2].addItem("Czarny");
-
-		comboBoxes[3].addItem(randomChoice);
-		comboBoxes[3].addItem("Gwiazdka");
-		comboBoxes[3].addItem("Kółko");
-		comboBoxes[3].addItem("Kwadrat");
-		comboBoxes[3].addItem("Trójkąt");
-		comboBoxes[3].addItem("Prostokąt");
-
-		p.add(send);
-		p.add(cancel);
-		p.setBackground(Color.LIGHT_GRAY);
-
-		SpringUtilities.makeCompactGrid(p,
-				numPairs + 1, 2, //rows, cols
-				50, 80, //initX, initY
-				60, 35); //xPad, yPad
+		SpringUtilities.makeCompactGrid(panel,
+				15, 2, //rows, cols
+				0, 50, //initX, initY
+				150, 10); //xPad, yPad
 		JLabel title = new JLabel("Dodawanie obiektu");
 		title.setFont(new Font("Serif", Font.PLAIN, 24));
-		p.add(title);
-		add(p);
+		panel.add(title);
+		add(panel);
 	}
 
 	private void setUpMouseListeners() {
@@ -198,17 +246,14 @@ public class AddingForm extends JPanel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}
@@ -217,47 +262,18 @@ public class AddingForm extends JPanel {
 		send.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean isDistinct = isNameDistinct();
-				addName(isDistinct);
-				addObjectUsingForm();
-				refreshNameList();
-				CommandlinePanel.addInfo("Pomyślnie dodano obiekt");
-
+				BeerModel beer = addObjectUsingForm();
+				if (beer != null) {
+					storehouse.addBeer(addObjectUsingForm());
+					textFields[2].setForeground(Color.black);
+					textFields[3].setForeground(Color.black);
+					textFields[4].setForeground(Color.black);
+					textFields[2].setText("");
+					textFields[3].setText("");
+					textFields[4].setText("");
+				}
 			}
 		});
-	}
-
-	private String randomizeColor() {
-		int choice = rand.nextInt(5);
-		return colors[choice];
-	}
-
-	private Double randomizeWeight() {
-		double choice = rand.nextInt(20);
-		return (double) choice;
-
-	}
-
-	private String randomizeType() {
-		int choice = rand.nextInt(5);
-		return types[choice];
-	}
-
-	private String parseColor(String colorInPolish) {
-		switch (colorInPolish) {
-			case "Zielony":
-				return "green";
-			case "Niebieski":
-				return "blue";
-			case "Czerwony":
-				return "red";
-			case "Czarny":
-				return "black";
-			case "Żółty":
-				return "yellow";
-			default:
-				return "black";
-		}
 
 	}
 }

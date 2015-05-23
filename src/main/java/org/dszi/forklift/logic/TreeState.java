@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.dszi.forklift.logic;
 
 import java.awt.Point;
@@ -11,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import org.dszi.forklift.models.Grid;
-import org.dszi.forklift.models.MoveActionTypes;
 import org.dszi.forklift.models.TreeItem;
 
 /**
