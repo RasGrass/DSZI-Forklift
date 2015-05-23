@@ -1,0 +1,1376 @@
+[
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.4,
+		"ibu" :26,
+		"extractPercentage" :11
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 5,
+		"ibu" :30,
+		"extractPercentage" :11.6
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 5.2,
+		"ibu" :42,
+		"extractPercentage" :12.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.6,
+		"ibu" :45,
+		"extractPercentage" :12.4
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.8,
+		"ibu" :36,
+		"extractPercentage" :11.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.5,
+		"ibu" :39,
+		"extractPercentage" :11.6
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.4,
+		"ibu" :26,
+		"extractPercentage" :11.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			},
+			{
+				"name" : "yeast2"
+				"type" : "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spices"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 4.9,
+		"ibu" :29,
+		"extractPercentage" :11.9
+	},
+
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 5,
+		"ibu" :41,
+		"extractPercentage" :11.8
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast"
+				"type": "pils"
+			},
+			{
+				"name": "yeast2"
+				"type": "pils"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "german"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "biscuit"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "floral"
+			}
+			],
+		"species": "German Pilsner",
+		"alcoholPercentage" : 5.2,
+		"ibu" :45,
+		"extractPercentage" :12
+	}
+}
+]
+
+[
+{
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "citrus"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 8,
+		"ibu" :50,
+		"extractPercentage" :19.3
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "citrus"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 12,
+		"ibu" :120,
+		"extractPercentage" :28.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "citrus"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 9.8,
+		"ibu" :72,
+		"extractPercentage" :15.3
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 8.3,
+		"ibu" :53,
+		"extractPercentage" :20.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt4",
+			  "maltType": "floral"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 10.8,
+		"ibu" :95,
+		"extractPercentage" :26.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 11.8,
+		"ibu" :75,
+		"extractPercentage" :22.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 9.8,
+		"ibu" :55,
+		"extractPercentage" :19.1
+	},
+	
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 12,
+		"ibu" :110,
+		"extractPercentage" :23.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 9.3,
+		"ibu" :68,
+		"extractPercentage" :25.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt4",
+			  "maltType": "floral"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 11.2,
+		"ibu" :82,
+		"extractPercentage" :21.4
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "citrus"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 10.5,
+		"ibu" :78,
+		"extractPercentage" :22.1
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "usa"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "english"
+			}
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt2",
+			  "maltType": "citrus"
+			},
+			{
+			  "name": "malt5",
+			  "maltType": "piceous"
+			},
+			],
+		"species": "American Barleywine",
+		"alcoholPercentage" : 10.2,
+		"ibu" :63,
+		"extractPercentage" :27.1
+	},
+		
+}
+]
+
+
+[
+{
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "austria"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 4.3,
+		"ibu" :10,
+		"extractPercentage" :11
+	},
+	
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "austria"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 5.6,
+		"ibu" :18,
+		"extractPercentage" :13.8
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 4.9,
+		"ibu" :13,
+		"extractPercentage" :11.8
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "munich"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 5.1,
+		"ibu" :17,
+		"extractPercentage" :13.8
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "munich"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt7",
+			  "maltType": "fruit"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 5.5,
+		"ibu" :13,
+		"extractPercentage" :11.8
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "munich"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt1",
+			  "maltType": "carmel"
+			},
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt7",
+			  "maltType": "fruit"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 4.7,
+		"ibu" :15,
+		"extractPercentage" :11.6
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "austria"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt7",
+			  "maltType": "fruit"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 4.3,
+		"ibu" :11,
+		"extractPercentage" :11.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "austria"
+			},
+			{
+			  "name" : "hop3" ,
+			  "countryOfOrigin" : "munich"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			{
+			  "name": "malt7",
+			  "maltType": "fruit"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 5.3,
+		"ibu" :14,
+		"extractPercentage" :13.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			{
+				"name": "yeast2"
+				"type": "ale"
+			}
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			{
+			  "name" : "hop2" ,
+			  "countryOfOrigin" : "austria"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			{
+			  "name": "malt6",
+			  "maltType": "clove"
+			},
+			{
+			  "name": "malt7",
+			  "maltType": "fruit"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 5.1,
+		"ibu" :11,
+		"extractPercentage" :12.2
+	},
+
+
+	{
+		"yeast" :
+			[
+			{
+				"name": "yeast1"
+				"type": "ale"
+			},
+			],
+
+		hops" :
+			[
+			{
+			  "name" : "hop1" ,
+			  "countryOfOrigin" : "german"
+			},
+			],
+
+		"malts" :
+			[
+			{
+			  "name": "malt3",
+			  "maltType": "spicy"
+			},
+			],
+		"species": "Dunkelweizen",
+		"alcoholPercentage" : 4.4,
+		"ibu" :10,
+		"extractPercentage" :11
+	},
+
+
+}
+]

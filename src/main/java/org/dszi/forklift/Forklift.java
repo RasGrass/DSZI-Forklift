@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.RepaintManager;
 import org.dszi.forklift.models.Grid;
+import org.dszi.forklift.models.GridItem;
 import org.dszi.forklift.ui.AddingForm;
 import org.dszi.forklift.ui.ItemListPanel;
 
@@ -143,7 +144,7 @@ public class Forklift extends Canvas {
 	}
 
 	private void SetObstacles() {
-
+		grid.SetObject(new GridItem(), 3, 3);
 	}
 
 	private void fillDrawingPane() {
