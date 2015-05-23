@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
+import org.apache.commons.lang3.StringUtils;
 import org.dszi.forklift.Forklift;
 import org.dszi.forklift.models.BeerIngredient;
 import org.dszi.forklift.models.BeerModel;
@@ -47,6 +48,8 @@ public class AddingForm extends JPanel {
 	private final String[] yeasts;
 	private final String[] listLabels;
 
+	private final JTextField beerName;
+
 	private final int numberOfMalts = 3;
 	private final int numberOfHops = 3;
 	private final int numberOfYeats = 3;
@@ -65,6 +68,7 @@ public class AddingForm extends JPanel {
 		this.numPairs = labels.length;
 		this.textFields = new JTextField[labels.length];
 		this.storehouse = Forklift.getInjector().getInstance(Storehouse.class);
+		this.beerName = new JTextField();
 		initPanel();
 		initComponents();
 		setUpComponents();
@@ -104,6 +108,12 @@ public class AddingForm extends JPanel {
 			return null;
 		}
 
+		if (StringUtils.isBlank(beerName.getText())) {
+			beerName.setForeground(Color.red);
+			beerName.setText("Must not be empty");
+			return null;
+		}
+
 		List<HopModel> selectedHops = new ArrayList();
 		List<MaltModel> selectedMalts = new ArrayList();
 		List<YeastModel> selectedYeasts = new ArrayList();
@@ -135,6 +145,7 @@ public class AddingForm extends JPanel {
 				withSetOfOtherIngredients(otherSelectedingredients).
 				withAlcoholPercentage(alcohol).
 				withIbu(ibu).
+				named(beerName.getText()).
 				withExtractPercentage(extract).
 				build();
 
@@ -149,6 +160,11 @@ public class AddingForm extends JPanel {
 	}
 
 	private void initComponents() {
+
+		JLabel beerNameTextFieldLabel = new JLabel("Nazwa", JLabel.TRAILING);
+		beerNameTextFieldLabel.setLabelFor(beerName);
+		panel.add(beerNameTextFieldLabel);
+		panel.add(beerName);
 
 		int j = 1;
 
@@ -215,7 +231,7 @@ public class AddingForm extends JPanel {
 		panel.setBackground(Color.LIGHT_GRAY);
 
 		SpringUtilities.makeCompactGrid(panel,
-				15, 2, //rows, cols
+				16, 2, //rows, cols
 				0, 50, //initX, initY
 				150, 10); //xPad, yPad
 		JLabel title = new JLabel("Dodawanie obiektu");
@@ -271,6 +287,8 @@ public class AddingForm extends JPanel {
 					textFields[2].setText("");
 					textFields[3].setText("");
 					textFields[4].setText("");
+					beerName.setForeground(Color.black);
+					beerName.setText("");
 				}
 			}
 		});

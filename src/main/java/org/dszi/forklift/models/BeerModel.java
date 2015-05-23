@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class BeerModel {
 
+	private String name;
+
 	private List<YeastModel> yeasts;
 
 	private List<HopModel> hops;
@@ -21,7 +23,7 @@ public class BeerModel {
 	private double ibu;
 
 	private double extractPercentage;
-	
+
 	private String species;
 
 	public String getSpecies() {
@@ -64,6 +66,10 @@ public class BeerModel {
 		return extractPercentage;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public static class Builder {
 
 		private final BeerModel beer;
@@ -99,6 +105,11 @@ public class BeerModel {
 
 		public Builder withIbu(double ibu) {
 			beer.ibu = ibu;
+			return this;
+		}
+
+		public Builder named(String name) {
+			beer.name = name;
 			return this;
 		}
 
