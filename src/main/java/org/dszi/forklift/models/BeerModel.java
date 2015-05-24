@@ -122,4 +122,49 @@ public class BeerModel {
 			return beer;
 		}
 	}
+
+	@Override
+	public String toString() {
+		String mergedMalts, megredHops, mergedYeasts;
+		StringBuilder builder = new StringBuilder();
+		for (MaltModel malt : malts) {
+			builder.append(malt.getMaltType());
+			builder.append(", ");
+		}
+		mergedMalts = builder.toString();
+		builder = new StringBuilder();
+		for (HopModel hop : hops) {
+			builder.append(hop.getCountryOfOrigin());
+			builder.append(", ");
+		}
+		megredHops = builder.toString();
+		builder = new StringBuilder();
+		for (YeastModel yeast : yeasts) {
+			builder.append(yeast.getType().name());
+			builder.append(", ");
+		}
+		mergedYeasts = builder.toString().
+				toLowerCase().
+				replaceAll("_", " ").
+				replaceAll("top", "Górnej").
+				replaceAll("fermentation", "fermentacji");
+
+		builder = new StringBuilder();
+		for (BeerIngredient ingredient : otherIngredients) {
+			builder.append(ingredient.getName());
+			builder.append(", ");
+		}
+		String mergedOtherIngredients = builder.toString();
+
+		return "<html>"
+				+ "Chmiele: " + megredHops
+				+ "<br/>" + "Słody: " + mergedMalts
+				+ "<br/>" + " Drożdżde: " + mergedYeasts
+				+ "<br/>" + " Inne składniki: " + mergedOtherIngredients
+				+ "<br/>" + " IBU: " + ibu
+				+ "<br/>" + " Alkohol: " + alcoholPercentage
+				+ "<br/>" + " Ekstrakt: " + extractPercentage
+				+ "</html>";
+	}
+
 }

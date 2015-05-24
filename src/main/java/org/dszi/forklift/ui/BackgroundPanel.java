@@ -14,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
-
-
 /*
  *  Support custom painting on a panel in the form of
  *

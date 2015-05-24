@@ -11,10 +11,10 @@ public class GameLogic {
 
 	@Inject
 	private Cart _cart;
-	
+
 	@Inject
 	private Grid _grid;
-	
+
 	@Inject
 	private TreeState _treeState;
 

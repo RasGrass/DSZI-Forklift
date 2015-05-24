@@ -3,6 +3,7 @@ package org.dszi.forklift.ui;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.JToolTip;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.dszi.forklift.models.BeerModel;
 

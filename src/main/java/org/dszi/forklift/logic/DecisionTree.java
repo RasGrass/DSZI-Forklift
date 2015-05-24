@@ -42,7 +42,7 @@ public class DecisionTree {
 		tree.setOptions(options);
 		tree.buildClassifier(data);
 	}
-	
+
 	public Instance beerModelToInstance(BeerModel beer) {
 		//TODO
 		return null;

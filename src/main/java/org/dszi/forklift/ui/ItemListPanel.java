@@ -85,7 +85,6 @@ public class ItemListPanel extends JPanel {
 		objectTable.setShowHorizontalLines(true);
 		table = new JScrollPane(objectTable);
 		DefaultTableCellRenderer cellRenderer = new BeerListRenderer(storehouse.getBeers(), objectTable);
-
 		cellRenderer.setHorizontalTextPosition(DefaultTableCellRenderer.CENTER);
 		cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		TableColumn col1 = objectTable.getColumnModel().getColumn(0);

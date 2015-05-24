@@ -131,7 +131,7 @@ public class AddingForm extends JPanel {
 			if (comboBoxes[i].getSelectedItem().equals("Dolnej fermentacji")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.BOTTOM_FERMENTATION));
 
-			} else {
+			} else if (comboBoxes[i].getSelectedItem().equals("Górnej fermentacji")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.TOP_FERMENTATION));
 			}
 		}

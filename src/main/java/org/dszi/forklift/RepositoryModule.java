@@ -7,12 +7,8 @@ import org.dszi.forklift.logic.GameLogic;
 import org.dszi.forklift.logic.TreeState;
 import org.dszi.forklift.models.Cart;
 import org.dszi.forklift.models.Grid;
-import org.dszi.forklift.models.Rack;
-import org.dszi.forklift.models.Shelf;
 import org.dszi.forklift.repository.Storehouse;
 import org.dszi.forklift.repository.ImageRepository;
-import org.dszi.forklift.ui.AddingForm;
-import org.dszi.forklift.ui.ItemListPanel;
 
 /**
  *
@@ -22,19 +18,13 @@ public class RepositoryModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		bind(ImageRepository.class).asEagerSingleton();//toInstance(new ImageRepository());
-		bind(Storehouse.class).asEagerSingleton();//toInstance(new Storehouse());
-
-		bind(Cart.class).asEagerSingleton();//toInstance(new Cart());
-		bind(JPanel.class).asEagerSingleton();//toInstance(new JPanel());
-		bind(JFrame.class).asEagerSingleton();//toInstance(new JFrame());
-		//	bind(Shelf.class).toInstance(new Shelf());
-		//bind(Rack.class).toInstance(new Rack());
+		bind(ImageRepository.class).asEagerSingleton();
+		bind(Storehouse.class).asEagerSingleton();
+		bind(Cart.class).asEagerSingleton();
+		bind(JPanel.class).asEagerSingleton();
+		bind(JFrame.class).asEagerSingleton();
 		bind(GameLogic.class).asEagerSingleton();
 		bind(TreeState.class).asEagerSingleton();
 		bind(Grid.class).asEagerSingleton();
-		//bind(AddingForm.class).asEagerSingleton();
-		//bind(ItemListPanel.class).toInstance(new ItemListPanel());
-
 	}
 }

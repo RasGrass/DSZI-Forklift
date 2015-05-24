@@ -4,7 +4,7 @@ package org.dszi.forklift.models;
  *
  * @author RasGrass
  */
-public class MaltModel implements BeerIngredient{
+public class MaltModel implements BeerIngredient {
 
 	private final String name;
 
