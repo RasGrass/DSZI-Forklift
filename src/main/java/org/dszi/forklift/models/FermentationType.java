@@ -22,5 +22,9 @@ public enum FermentationType {
 	public boolean isAle() {
 		return beerType.equals(TOP_FERMENTATION.name());
 	}
+	
+	public String getName() {
+		return beerType;
+	}
 
 }

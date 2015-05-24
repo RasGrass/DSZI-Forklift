@@ -3,6 +3,7 @@ package org.dszi.forklift;
 import com.google.inject.AbstractModule;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.dszi.forklift.logic.DecisionTree;
 import org.dszi.forklift.logic.GameLogic;
 import org.dszi.forklift.logic.TreeState;
 import org.dszi.forklift.models.Cart;
@@ -26,5 +27,6 @@ public class RepositoryModule extends AbstractModule {
 		bind(GameLogic.class).asEagerSingleton();
 		bind(TreeState.class).asEagerSingleton();
 		bind(Grid.class).asEagerSingleton();
+		bind(DecisionTree.class).asEagerSingleton();
 	}
 }

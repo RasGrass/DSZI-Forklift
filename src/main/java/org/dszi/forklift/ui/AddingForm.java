@@ -20,6 +20,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
 import org.dszi.forklift.Forklift;
+import org.dszi.forklift.logic.DecisionTree;
 import org.dszi.forklift.models.BeerIngredient;
 import org.dszi.forklift.models.BeerModel;
 import org.dszi.forklift.models.FermentationType;
@@ -52,17 +53,22 @@ public class AddingForm extends JPanel {
 
 	private final int numberOfMalts = 3;
 	private final int numberOfHops = 3;
-	private final int numberOfYeats = 3;
+	private final int numberOfYeats = 2;
+	private final String[] maltsEn;
+	
+	private final DecisionTree decisionTree;
 
 	public AddingForm() {
 		this.malts = new String[]{"Brak", "Pale Ale", "Palony", "Pilzneński", "Karmelowy", "Pszeniczny"};
-		this.hops = new String[]{"Brak", "USA", "Czeski", "Anglielski", "Niemiecki", "Polski"};
-		this.yeasts = new String[]{"Brak", "Górnej fermentacji", "Dolnej fermentacji"};
-
+		this.maltsEn = new String[]{"biscuit", "toffee", "wheat", "spices", "floral", "caramel", "spicy", "rye", "pilsner", "barley", "roasted", "pale ale", "munich", "citrus", "piceous", "clove", "vienna", "oat"};
+		
+		this.hops = new String[]{"english","usa","german","austria","munich","czech","polish","spicy","noble"};
+		this.yeasts = new String[]{"ale","lager"};
+		this.decisionTree=Forklift.getInjector().getInstance(DecisionTree.class);
 		this.cancel = new JButton("Anuluj");
 		this.send = new JButton("Dodaj");
 		this.panel = new JPanel(new SpringLayout());
-		this.comboBoxes = new JComboBox[9];
+		this.comboBoxes = new JComboBox[8];
 		this.listLabels = new String[]{"Chmiel", "Słód", "Drożdże"};
 		this.labels = new String[]{"Inny składnik 1", "Inny składnik 2", "IBU", "Alkohol", "Ekstrakt"};
 		this.numPairs = labels.length;
@@ -128,10 +134,10 @@ public class AddingForm extends JPanel {
 		}
 
 		for (int i = numberOfHops + numberOfMalts; i < numberOfHops + numberOfMalts + numberOfYeats; i++) {
-			if (comboBoxes[i].getSelectedItem().equals("Dolnej fermentacji")) {
+			if (comboBoxes[i].getSelectedItem().equals("lager")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.BOTTOM_FERMENTATION));
 
-			} else if (comboBoxes[i].getSelectedItem().equals("Górnej fermentacji")) {
+			} else if (comboBoxes[i].getSelectedItem().equals("ale")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.TOP_FERMENTATION));
 			}
 		}
@@ -216,7 +222,7 @@ public class AddingForm extends JPanel {
 			if (comboBoxesCounter < numberOfHops) {
 				items = hops;
 			} else if (comboBoxesCounter >= numberOfHops && comboBoxesCounter < numberOfHops + numberOfMalts) {
-				items = malts;
+				items = maltsEn;
 			} else {
 				items = yeasts;
 			}
@@ -231,7 +237,7 @@ public class AddingForm extends JPanel {
 		panel.setBackground(Color.LIGHT_GRAY);
 
 		SpringUtilities.makeCompactGrid(panel,
-				16, 2, //rows, cols
+				15, 2, //rows, cols
 				0, 50, //initX, initY
 				150, 10); //xPad, yPad
 		JLabel title = new JLabel("Dodawanie obiektu");
@@ -280,7 +286,8 @@ public class AddingForm extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				BeerModel beer = addObjectUsingForm();
 				if (beer != null) {
-					storehouse.addBeer(addObjectUsingForm());
+					beer.setSpecies(decisionTree.recognizeBeerSpecies(beer));
+					storehouse.addBeer(beer);
 					textFields[2].setForeground(Color.black);
 					textFields[3].setForeground(Color.black);
 					textFields[4].setForeground(Color.black);

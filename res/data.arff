@@ -1,0 +1,120 @@
+@relation result
+
+@attribute yeasts/0/type {ale,lager}
+@attribute yeasts/1/type {ale,lager}
+@attribute hops/0/countryOfOrigin {english,usa,german,austria,munich,czech,polish,spicy,noble}
+@attribute hops/1/countryOfOrigin {english,usa,german,austria,munich,czech,polish,spicy,noble}
+@attribute malts/0/maltType {biscuit, toffee, wheat, spices, floral, caramel, spicy, rye, pilsner, barley, roasted, 'pale ale', munich, citrus, piceous, clove, vienna, oat}
+@attribute malts/1/maltType {biscuit, toffee, wheat, spices, floral, caramel, spicy, rye, pilsner, barley, roasted, 'pale ale', munich, citrus, piceous, clove, vienna, oat}
+@attribute species {'English IPA','American Amber Ale','Blonde Ale',GermanPilsner,AmericanBarleywine,Dunkelweizen,'Russian Imperial Stout',Witbier,'American IPA','Biere de Garde'}
+@attribute alcoholPercentage numeric
+@attribute ibu numeric
+@attribute extractPercentage numeric
+@attribute malts/2/maltType {biscuit, toffee, wheat, spices, floral, caramel, spicy, rye, pilsner, barley, roasted, 'pale ale', munich, citrus, piceous, clove, vienna, oat}
+@attribute hops/2/countryOfOrigin {english,usa,german,austria,munich,czech,polish,spicy,noble}
+@attribute otherIngredients/0/name {grain,coriander,'orange peel', sugar}
+@attribute otherIngredients/1/name {grain,coriander,'orange peel', sugar}
+
+@data
+ale,ale,english,english,biscuit,toffee,'English IPA',5.2,41,13,?,?,?,?
+ale,ale,english,english,biscuit,caramel,'English IPA',6,44,14,?,?,?,?
+ale,?,english,?,biscuit,caramel,'English IPA',6,44,14,toffee,?,?,?
+ale,?,english,english,biscuit,caramel,'English IPA',6.5,50,16,toffee,?,?,?
+ale,ale,english,?,biscuit,?,'English IPA',6.8,54,16.5,?,?,?,?
+ale,ale,english,?,toffee,?,'English IPA',7.2,56,18,?,?,?,?
+ale,ale,english,english,biscuit,toffee,'English IPA',5.2,48,17,?,english,?,?
+ale,ale,english,?,biscuit,toffee,'English IPA',7.4,43,13,?,?,?,?
+ale,?,english,?,biscuit,caramel,'English IPA',5.2,56,14,?,?,?,?
+ale,?,english,?,caramel,?,'English IPA',5.3,52,17,?,?,?,?
+ale,?,usa,usa,caramel,?,'American Amber Ale',4.6,27,11.5,?,?,?,?
+ale,?,usa,?,caramel,?,'American Amber Ale',4.9,30,12.5,?,?,?,?
+ale,ale,usa,?,caramel,?,'American Amber Ale',5.2,33,12.9,?,?,?,?
+ale,?,usa,?,caramel,?,'American Amber Ale',5.4,35,13.3,?,?,?,?
+ale,?,usa,usa,caramel,?,'American Amber Ale',5.4,36,13.4,?,usa,grain,?
+ale,?,usa,usa,caramel,?,'American Amber Ale',5.8,38,13.8,?,?,?,?
+ale,?,usa,?,caramel,?,'American Amber Ale',4.6,30,13.8,?,?,?,?
+ale,?,usa,?,caramel,?,'American Amber Ale',4.8,38,11.8,?,?,?,?
+ale,?,usa,?,caramel,?,'American Amber Ale',4.8,25,14.5,?,?,?,?
+ale,ale,usa,usa,caramel,?,'American Amber Ale',4.7,38,14.5,?,?,grain,?
+ale,?,english,?,wheat,?,'Blonde Ale',4,17,10,?,?,?,?
+ale,?,english,usa,wheat,?,'Blonde Ale',4.3,20,10.5,?,?,?,?
+ale,lager,czech,?,wheat,?,'Blonde Ale',4.3,23,11,?,?,?,?
+lager,?,usa,czech,wheat,?,'Blonde Ale',4.5,27,11.5,?,?,?,?
+lager,?,english,?,wheat,?,'Blonde Ale',4.8,20,12,?,?,?,?
+ale,?,english,usa,wheat,?,'Blonde Ale',5.2,24,12.5,?,czech,?,?
+ale,lager,english,usa,wheat,?,'Blonde Ale',4,17,13,?,?,?,?
+ale,?,czech,?,wheat,?,'Blonde Ale',5.3,17,10,?,?,?,?
+lager,?,english,?,wheat,?,'Blonde Ale',4,27,10,?,?,?,?
+lager,?,english,?,wheat,?,'Blonde Ale',4,26,12.7,?,?,?,?
+lager,lager,german,german,biscuit,floral,GermanPilsner,4.4,26,11,?,?,?,?
+lager,lager,german,german,biscuit,spices,GermanPilsner,5,30,11.6,?,?,?,?
+lager,?,german,?,biscuit,floral,GermanPilsner,5.2,42,12.2,spices,?,?,?
+lager,?,german,?,spices,?,GermanPilsner,4.6,45,12.4,?,?,?,?
+lager,lager,german,?,floral,spices,GermanPilsner,4.8,36,11.2,?,?,?,?
+lager,lager,german,?,floral,spices,GermanPilsner,4.5,39,11.6,?,?,?,?
+lager,?,german,?,biscuit,spices,GermanPilsner,4.4,26,11.2,?,?,?,?
+lager,lager,german,?,biscuit,spices,GermanPilsner,4.9,29,11.9,?,?,?,?
+lager,lager,german,german,biscuit,floral,GermanPilsner,5,41,11.8,?,?,?,?
+lager,lager,german,german,biscuit,spicy,GermanPilsner,5.2,45,12,floral,?,?,?
+ale,ale,usa,usa,caramel,citrus,AmericanBarleywine,8,50,19.3,?,?,?,?
+ale,ale,usa,usa,caramel,citrus,AmericanBarleywine,12,120,28.1,?,?,?,?
+ale,ale,usa,?,caramel,citrus,AmericanBarleywine,9.8,72,15.3,spicy,?,?,?
+ale,ale,usa,?,caramel,?,AmericanBarleywine,8.3,53,20.1,?,?,?,?
+ale,ale,usa,usa,caramel,floral,AmericanBarleywine,10.8,95,26.1,?,english,?,?
+ale,ale,usa,english,caramel,piceous,AmericanBarleywine,11.8,75,22.1,?,?,?,?
+ale,ale,usa,usa,caramel,piceous,AmericanBarleywine,9.8,55,19.1,?,english,?,?
+ale,ale,usa,usa,caramel,spicy,AmericanBarleywine,12,110,23.1,piceous,english,?,?
+ale,ale,usa,english,spicy,piceous,AmericanBarleywine,9.3,68,25.1,?,?,?,?
+ale,ale,usa,usa,caramel,floral,AmericanBarleywine,11.2,82,21.4,piceous,english,?,?
+ale,ale,usa,usa,caramel,citrus,AmericanBarleywine,10.5,78,22.1,spicy,english,?,?
+ale,?,usa,usa,caramel,citrus,AmericanBarleywine,10.2,63,27.1,piceous,english,?,?
+ale,?,german,austria,spicy,clove,Dunkelweizen,4.3,10,11,?,?,?,?
+ale,?,german,austria,spicy,clove,Dunkelweizen,5.6,18,13.8,?,?,?,?
+ale,?,german,?,caramel,clove,Dunkelweizen,4.9,13,11.8,?,?,?,?
+ale,ale,german,munich,caramel,clove,Dunkelweizen,5.1,17,13.8,?,?,?,?
+ale,ale,german,munich,caramel,vienna,Dunkelweizen,5.5,13,11.8,?,?,?,?
+ale,ale,german,munich,caramel,spicy,Dunkelweizen,4.7,15,11.6,vienna,?,?,?
+ale,ale,german,austria,spicy,vienna,Dunkelweizen,4.3,11,11.2,?,?,?,?
+ale,ale,german,austria,spicy,clove,Dunkelweizen,5.3,14,13.2,vienna,munich,?,?
+ale,ale,german,austria,spicy,clove,Dunkelweizen,5.1,11,12.2,vienna,?,?,?
+ale,?,german,?,spicy,?,Dunkelweizen,4.4,10,11,?,?,?,?
+lager,lager,english,usa,biscuit,roasted,'Russian Imperial Stout',10.1,50,21,?,?,?,?
+lager,lager,czech,german,wheat,pilsner,'Russian Imperial Stout',10.3,75,20.7,?,?,?,?
+lager,lager,usa,?,rye,wheat,'Russian Imperial Stout',8.9,82,19.3,?,?,?,?
+lager,lager,english,english,biscuit,pilsner,'Russian Imperial Stout',10,89,20,?,?,?,?
+lager,lager,german,english,pilsner,caramel,'Russian Imperial Stout',10.9,63,20.8,?,?,?,?
+lager,lager,german,?,barley,'pale ale','Russian Imperial Stout',10.5,71,19.2,?,?,?,?
+lager,lager,czech,czech,barley,roasted,'Russian Imperial Stout',11,95,20.7,'pale ale',?,?,?
+lager,lager,english,polish,roasted,caramel,'Russian Imperial Stout',8.5,50,17.6,roasted,german,?,?
+lager,lager,english,czech,caramel,barley,'Russian Imperial Stout',9,78,19,?,?,?,?
+lager,lager,usa,czech,biscuit,'pale ale','Russian Imperial Stout',12,64,22,?,?,?,?
+ale,ale,noble,spicy,wheat,barley,Witbier,4.8,20,11,?,?,?,?
+ale,ale,spicy,?,wheat,barley,Witbier,5.4,10,13,?,?,coriander,?
+ale,ale,spicy,spicy,wheat,barley,Witbier,5,15,12.5,?,?,coriander,?
+ale,ale,noble,noble,wheat,barley,Witbier,5.3,12,11.5,?,?,coriander,?
+ale,ale,noble,spicy,wheat,barley,Witbier,4.9,18,12.7,pilsner,?,?,'orange peel'
+ale,ale,noble,noble,wheat,pilsner,Witbier,4.7,14,11.7,?,?,coriander,'orange peel'
+ale,ale,noble,spicy,wheat,pilsner,Witbier,5.5,19,12.2,?,?,'orange peel',coriander
+ale,ale,spicy,?,wheat,barley,Witbier,5,17,13,barley,?,?,?
+ale,ale,noble,?,wheat,barley,Witbier,5.5,12,13,?,?,coriander,?
+ale,ale,spicy,noble,wheat,oat,Witbier,5.2,10,11.9,barley,?,coriander,?
+ale,ale,usa,usa,'pale ale',wheat,'American IPA',7.4,70,18,?,?,?,?
+ale,ale,usa,usa,'pale ale',barley,'American IPA',6.2,62,15.9,?,?,?,?
+ale,ale,usa,usa,wheat,'pale ale','American IPA',6.8,41,16.4,?,?,?,?
+ale,ale,usa,usa,barley,'pale ale','American IPA',5.7,49,14.5,?,?,?,?
+ale,ale,usa,usa,'pale ale',barley,'American IPA',7,62,14.3,?,?,?,?
+ale,ale,usa,usa,'pale ale','pale ale','American IPA',5.8,69,17.8,?,?,?,?
+ale,ale,usa,usa,'pale ale',wheat,'American IPA',6.1,59,14.9,?,?,?,?
+ale,ale,usa,usa,'pale ale',barley,'American IPA',6.7,58,16.9,wheat,?,?,?
+ale,ale,usa,usa,'pale ale',barley,'American IPA',7.2,62,16.9,?,?,?,?
+ale,ale,usa,usa,'pale ale',wheat,'American IPA',5.5,41,14,?,?,?,?
+lager,lager,czech,english,munich,'pale ale','Biere de Garde',6.4,20,15.1,?,?,sugar,?
+lager,lager,german,austria,vienna,munich,'Biere de Garde',8.3,28,19,?,?,?,sugar
+ale,ale,english,polish,'pale ale',munich,'Biere de Garde',7.7,24,17.1,?,?,sugar,?
+lager,lager,english,english,'pale ale',vienna,'Biere de Garde',6.8,22,15.7,?,?,?,sugar
+ale,ale,polish,german,munich,'pale ale','Biere de Garde',6,18,14.7,?,?,sugar,?
+ale,ale,english,english,vienna,munich,'Biere de Garde',8.5,28,19.3,?,?,?,sugar
+ale,ale,german,austria,'pale ale',vienna,'Biere de Garde',6,25,15.9,?,?,sugar,?
+lager,lager,czech,english,vienna,'pale ale','Biere de Garde',8,27,18.7,?,?,?,sugar
+lager,ale,english,czech,'pale ale',vienna,'Biere de Garde',6.7,21,16.2,?,?,sugar,?
+lager,lager,english,polish,'pale ale',munich,'Biere de Garde',7.2,25,17.4,?,?,?,sugar

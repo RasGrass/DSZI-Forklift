@@ -143,11 +143,7 @@ public class BeerModel {
 			builder.append(yeast.getType().name());
 			builder.append(", ");
 		}
-		mergedYeasts = builder.toString().
-				toLowerCase().
-				replaceAll("_", " ").
-				replaceAll("top", "Górnej").
-				replaceAll("fermentation", "fermentacji");
+		mergedYeasts = builder.toString();
 
 		builder = new StringBuilder();
 		for (BeerIngredient ingredient : otherIngredients) {
