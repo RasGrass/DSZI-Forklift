@@ -1,6 +1,6 @@
 [
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -36,7 +36,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -72,7 +72,7 @@
         "extractPercentage": 14
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -104,7 +104,7 @@
         "extractPercentage": 14
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -140,7 +140,7 @@
         "extractPercentage": 16
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -168,7 +168,7 @@
         "extractPercentage": 16.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -196,7 +196,7 @@
         "extractPercentage": 18
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -236,7 +236,7 @@
         "extractPercentage": 17
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -268,7 +268,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts2",
                 "type": "ale"
@@ -296,7 +296,7 @@
         "extractPercentage": 14
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -320,7 +320,7 @@
         "extractPercentage": 17
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -353,7 +353,7 @@
         "extractPercentage": 11.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -382,7 +382,7 @@
         "extractPercentage": 12.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -411,7 +411,7 @@
         "extractPercentage": 12.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts2",
                 "type": "ale"
@@ -436,7 +436,7 @@
         "extractPercentage": 13.3
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -476,7 +476,7 @@
         "extractPercentage": 13.4
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -509,7 +509,7 @@
         "extractPercentage": 13.8
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -534,7 +534,7 @@
         "extractPercentage": 13.8
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -563,7 +563,7 @@
         "extractPercentage": 11.8
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -588,7 +588,7 @@
         "extractPercentage": 14.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -628,7 +628,7 @@
         "extractPercentage": 14.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -657,7 +657,7 @@
         "extractPercentage": 10
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -690,7 +690,7 @@
         "extractPercentage": 10.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -723,7 +723,7 @@
         "extractPercentage": 11
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -756,7 +756,7 @@
         "extractPercentage": 11.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -785,7 +785,7 @@
         "extractPercentage": 12
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -818,7 +818,7 @@
         "extractPercentage": 12.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -855,7 +855,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -880,7 +880,7 @@
         "extractPercentage": 10
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -909,7 +909,7 @@
         "extractPercentage": 10
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -938,9 +938,9 @@
         "extractPercentage": 12.7
     },
     {
-        "yeast": [
+        "yeasts": [
             {
-                "name": "yeast",
+                "name": "yeasts",
                 "type": "lager"
             },
             {
@@ -974,9 +974,9 @@
         "extractPercentage": 11
     },
     {
-        "yeast": [
+        "yeasts": [
             {
-                "name": "yeast",
+                "name": "yeasts",
                 "type": "lager"
             },
             {
@@ -1010,7 +1010,7 @@
         "extractPercentage": 11.6
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast2",
                 "type": "lager"
@@ -1042,7 +1042,7 @@
         "extractPercentage": 12.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1066,7 +1066,7 @@
         "extractPercentage": 12.4
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1098,7 +1098,7 @@
         "extractPercentage": 11.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1130,7 +1130,7 @@
         "extractPercentage": 11.6
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1158,7 +1158,7 @@
         "extractPercentage": 11.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1190,7 +1190,7 @@
         "extractPercentage": 11.9
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "lager"
@@ -1226,9 +1226,9 @@
         "extractPercentage": 11.8
     },
     {
-        "yeast": [
+        "yeasts": [
             {
-                "name": "yeast",
+                "name": "yeasts",
                 "type": "lager"
             },
             {
@@ -1266,7 +1266,7 @@
         "extractPercentage": 12
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1302,7 +1302,7 @@
         "extractPercentage": 19.3
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1338,7 +1338,7 @@
         "extractPercentage": 28.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1374,7 +1374,7 @@
         "extractPercentage": 15.3
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1402,7 +1402,7 @@
         "extractPercentage": 20.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1442,7 +1442,7 @@
         "extractPercentage": 26.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1478,7 +1478,7 @@
         "extractPercentage": 22.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1518,7 +1518,7 @@
         "extractPercentage": 19.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1562,7 +1562,7 @@
         "extractPercentage": 23.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1598,7 +1598,7 @@
         "extractPercentage": 25.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1642,7 +1642,7 @@
         "extractPercentage": 21.4
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1686,7 +1686,7 @@
         "extractPercentage": 22.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1726,7 +1726,7 @@
         "extractPercentage": 27.1
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1753,12 +1753,13 @@
             }
         ],
         "species": "Dunkelweizen",
+
         "alcoholPercentage": 4.3,
         "ibu": 10,
         "extractPercentage": 11
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1790,7 +1791,7 @@
         "extractPercentage": 13.8
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1818,7 +1819,7 @@
         "extractPercentage": 11.8
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1854,7 +1855,7 @@
         "extractPercentage": 13.8
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1890,7 +1891,7 @@
         "extractPercentage": 11.8
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1930,7 +1931,7 @@
         "extractPercentage": 11.6
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -1966,7 +1967,7 @@
         "extractPercentage": 11.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -2010,7 +2011,7 @@
         "extractPercentage": 13.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -2050,7 +2051,7 @@
         "extractPercentage": 12.2
     },
     {
-        "yeast": [
+        "yeasts": [
             {
                 "name": "yeast1",
                 "type": "ale"
@@ -2074,7 +2075,7 @@
         "extractPercentage": 11
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2110,7 +2111,7 @@
         "extractPercentage": 21
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2146,7 +2147,7 @@
         "extractPercentage": 20.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2178,7 +2179,7 @@
         "extractPercentage": 19.3
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2214,7 +2215,7 @@
         "extractPercentage": 20
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2250,7 +2251,7 @@
         "extractPercentage": 20.8
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2282,7 +2283,7 @@
         "extractPercentage": 19.2
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2322,7 +2323,7 @@
         "extractPercentage": 20.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2366,7 +2367,7 @@
         "extractPercentage": 17.6
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2402,7 +2403,7 @@
         "extractPercentage": 19
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -2438,7 +2439,7 @@
         "extractPercentage": 22
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2479,7 +2480,7 @@
         "extractPercentage": 11
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2519,7 +2520,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2563,7 +2564,7 @@
         "extractPercentage": 12.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2607,7 +2608,7 @@
         "extractPercentage": 11.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2652,7 +2653,7 @@
         "extractPercentage": 12.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2696,7 +2697,7 @@
         "extractPercentage": 11.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2737,7 +2738,7 @@
         "extractPercentage": 12.2
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2778,7 +2779,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2818,7 +2819,7 @@
         "extractPercentage": 13
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2866,7 +2867,7 @@
         "extractPercentage": 11.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2902,7 +2903,7 @@
         "extractPercentage": 18
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2938,7 +2939,7 @@
         "extractPercentage": 15.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -2974,7 +2975,7 @@
         "extractPercentage": 16.4
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3010,7 +3011,7 @@
         "extractPercentage": 14.5
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3046,7 +3047,7 @@
         "extractPercentage": 14.3
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3082,7 +3083,7 @@
         "extractPercentage": 17.8
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3118,7 +3119,7 @@
         "extractPercentage": 14.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3158,7 +3159,7 @@
         "extractPercentage": 16.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3194,7 +3195,7 @@
         "extractPercentage": 16.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3230,7 +3231,7 @@
         "extractPercentage": 14
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -3271,7 +3272,7 @@
         "extractPercentage": 15.1
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -3312,7 +3313,7 @@
         "extractPercentage": 19
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3353,7 +3354,7 @@
         "extractPercentage": 17.1
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -3394,7 +3395,7 @@
         "extractPercentage": 15.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3435,7 +3436,7 @@
         "extractPercentage": 14.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3476,7 +3477,7 @@
         "extractPercentage": 19.3
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "ale"
@@ -3517,7 +3518,7 @@
         "extractPercentage": 15.9
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -3558,7 +3559,7 @@
         "extractPercentage": 18.7
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
@@ -3599,7 +3600,7 @@
         "extractPercentage": 16.2
     },
     {
-        "yasts": [
+        "yeasts": [
             {
                 "name": "yasts1",
                 "type": "lager"
