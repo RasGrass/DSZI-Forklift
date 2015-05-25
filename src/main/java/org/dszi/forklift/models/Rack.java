@@ -1,10 +1,13 @@
-package org.dszi.forklift;
+package org.dszi.forklift.models;
 
+import com.google.inject.Guice;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
+import org.dszi.forklift.Forklift;
+import org.dszi.forklift.RepositoryModule;
 
 /**
  *
@@ -20,13 +23,19 @@ public class Rack extends JPanel {
 	public static final double START_POS = (Toolkit.getDefaultToolkit().getScreenSize().width) / 10;
 	public static final double SPACER = (Toolkit.getDefaultToolkit().getScreenSize().width) / 15;
 
-	Rack() {
+	public Rack() {
 		super();
 		//setLayout(new BorderLayout());
 		rackNumber = counter++;
 		for (int i = 0; i < 5; i++) {
-			shelfs[i] = new Shelf();
-			add(shelfs[i]);
+			if (Forklift.getInjector() == null) {
+				shelfs[i] = Guice.createInjector(new RepositoryModule()).getInstance(Shelf.class);
+				add(shelfs[i]);
+			} else {
+				shelfs[i] = Forklift.getInjector().getInstance(Shelf.class);
+				add(shelfs[i]);
+			}
+
 		}
 		setPreferredSize(new Dimension((int) RACK_WIDTH, (int) RACK_HEIGHT));
 		setLocation(80 * rackNumber + 1, 10);

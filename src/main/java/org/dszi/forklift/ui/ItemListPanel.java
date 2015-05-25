@@ -1,5 +1,7 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
+import com.google.inject.Inject;
+import org.dszi.forklift.repository.Storehouse;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.text.TableView.TableRow;
+import org.dszi.forklift.Forklift;
 
 /**
  *
@@ -24,14 +29,19 @@ import javax.swing.table.TableColumn;
  */
 public class ItemListPanel extends JPanel {
 
-	private Dimension panelSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private final Dimension panelSize;
 	private JTable objectTable;
 	private DefaultTableModel model;
-	private String[] rowNames = {"ID", "Nazwa", "Ciężar", "Kolor", "Typ"};
+	private final String[] rowNames;
 	private JScrollPane table;
 
-	ItemListPanel() {
+	@Inject
+	private Storehouse storehouse;
+
+	public ItemListPanel() {
 		super();
+		this.panelSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.rowNames = new String[]{"Nazwa", "Gatunek"};
 		int temp;
 		temp = (int) (panelSize.width / 1.5);
 		panelSize.width = panelSize.width - temp;
@@ -46,43 +56,42 @@ public class ItemListPanel extends JPanel {
 	}
 
 	private void initTable() {
-		model = new DefaultTableModel(Storehouse._getObjects(), rowNames) {
-			@Override
-			public boolean isCellEditable(int cell, int column) {
-				return false;
-			}
-		};
-		model.setRowCount(Storehouse.getObjects().size());
-		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-		cellRenderer.setHorizontalTextPosition(DefaultTableCellRenderer.CENTER);
-		cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 
-		objectTable = new JTable(model);
-		objectTable.setBackground(Color.LIGHT_GRAY);
-		objectTable.setIntercellSpacing(new Dimension(3, 5));
-		objectTable.setRowHeight(50);
-		objectTable.setColumnSelectionAllowed(false);
-		objectTable.setDragEnabled(false);
-		objectTable.setRowMargin(30);
+		storehouse = Forklift.getInjector().getInstance(Storehouse.class);
+		if (storehouse == null) {
+			model = new DefaultTableModel();
+		} else {
+			model = new DefaultTableModel(storehouse._getBeers(), rowNames) {
+				@Override
+				public boolean isCellEditable(int cell, int column) {
+					return false;
+				}
+			};
 
-		//System.out.println(Forklift.getStroehouse().toString());
-		TableColumn col1 = objectTable.getColumnModel().getColumn(0);
-		TableColumn col2 = objectTable.getColumnModel().getColumn(1);
-		TableColumn col3 = objectTable.getColumnModel().getColumn(2);
-		TableColumn col4 = objectTable.getColumnModel().getColumn(3);
-		TableColumn col5 = objectTable.getColumnModel().getColumn(4);
+			objectTable = new JTable(model);
+			objectTable.setBackground(Color.LIGHT_GRAY);
+			objectTable.setIntercellSpacing(new Dimension(3, 5));
+			objectTable.setRowHeight(50);
+			objectTable.setColumnSelectionAllowed(false);
+			objectTable.setDragEnabled(false);
+			objectTable.setRowMargin(30);
 
-		col1.setCellRenderer(cellRenderer);
-		col2.setCellRenderer(cellRenderer);
-		col3.setCellRenderer(cellRenderer);
-		col4.setCellRenderer(cellRenderer);
-		col5.setCellRenderer(cellRenderer);
+			model.setRowCount(storehouse.getBeers().size());
+
+		}
 
 		objectTable.setOpaque(true);
 		objectTable.setShowVerticalLines(false);
 		objectTable.setShowHorizontalLines(true);
 		table = new JScrollPane(objectTable);
+		DefaultTableCellRenderer cellRenderer = new BeerListRenderer(storehouse.getBeers(), objectTable);
+		cellRenderer.setHorizontalTextPosition(DefaultTableCellRenderer.CENTER);
+		cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+		TableColumn col1 = objectTable.getColumnModel().getColumn(0);
+		TableColumn col2 = objectTable.getColumnModel().getColumn(1);
 
+		col1.setCellRenderer(cellRenderer);
+		col2.setCellRenderer(cellRenderer);
 	}
 
 	private void initUI() {
@@ -110,12 +119,7 @@ public class ItemListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				objectTable.invalidate();
 				while (objectTable.getSelectedRows().length > 0) {
-					int selectedRowsCount = objectTable.getSelectedRows().length;
-					int[] selectedRows = new int[selectedRowsCount];
-					selectedRows = objectTable.getSelectedRows();
-					int id = Integer.parseInt((String) model.getValueAt(selectedRows[0], 0));
-					System.out.println("usuwam" + Storehouse.find(id).toString());
-					Storehouse.deleteObject(Storehouse.find(id));
+					int[] selectedRows = objectTable.getSelectedRows();
 					model.removeRow(selectedRows[0]);
 				}
 			}
@@ -124,7 +128,7 @@ public class ItemListPanel extends JPanel {
 		add(southButtonPanel, BorderLayout.SOUTH);
 		setVisible(true);
 		southButtonPanel.setVisible(true);
-		//System.out.println(southButtonPanel.getSize().width);
 		southButtonPanel.setLayout(new GridLayout(1, 2, southButtonPanel.getSize().width / 3, 30));
 	}
+
 }

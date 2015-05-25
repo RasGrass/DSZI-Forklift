@@ -1,4 +1,4 @@
-package org.dszi.forklift;
+package org.dszi.forklift.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -13,8 +13,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
-
-
 
 /*
  *  Support custom painting on a panel in the form of
@@ -129,17 +127,6 @@ public class BackgroundPanel extends JPanel {
 		} else {
 			return new Dimension(image.getWidth(null), image.getHeight(null));
 		}
-	}
-
-	/*
-	 *  Override method so we can make the component transparent
-	 */
-	public void add(JComponent component, Object constraints) {
-		if (isTransparentAdd) {
-			makeComponentTransparent(component);
-		}
-
-		super.add(component, constraints);
 	}
 
 	/*
