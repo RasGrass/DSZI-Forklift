@@ -27,6 +27,7 @@ import javax.swing.KeyStroke;
 import javax.swing.RepaintManager;
 import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.GridItem;
+import org.dszi.forklift.models.Rack;
 import org.dszi.forklift.ui.AddingForm;
 import org.dszi.forklift.ui.ItemListPanel;
 
@@ -46,7 +47,7 @@ public class Forklift extends Canvas {
 	private final Cart forklift;
 	private final Grid grid;
 	private static Injector injector;
-	//private final Rack[] racks = new Rack[7];
+	private final Rack[] racks = new Rack[7];
 
 	public Cart getCart() {
 		return forklift;
@@ -73,8 +74,8 @@ public class Forklift extends Canvas {
 		FlowLayout flow = new FlowLayout();
 		flow.setVgap(0);
 		for (int i = 0; i < 6; i++) {
-			//racks[i] = injector.getInstance(Rack.class);
-			//racks[i].setLayout(flow);
+			racks[i] = new Rack();
+			racks[i].setLayout(flow);
 		}
 
 		this.panelAction = new ActionListener() {
@@ -150,12 +151,12 @@ public class Forklift extends Canvas {
 	private void fillDrawingPane() {
 		drawingPane.setBackground(Color.LIGHT_GRAY);
 		drawingPane.add(forklift);
-		/*drawingPane.add(racks[0]);
+		drawingPane.add(racks[0]);
 		 drawingPane.add(racks[1]);
 		 drawingPane.add(racks[2]);
 		 drawingPane.add(racks[3]);
 		 drawingPane.add(racks[4]);
-		 drawingPane.add(racks[5]);*/
+		 drawingPane.add(racks[5]);
 		frame.setVisible(true);
 	}
 

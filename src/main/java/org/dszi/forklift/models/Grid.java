@@ -12,8 +12,8 @@ public class Grid {
 	int _height;
 
 	public Grid() {
-		_width = 15;
-		_height = 15;
+		_width = 1000;
+		_height = 1000;
 		initPool();
 	}
 

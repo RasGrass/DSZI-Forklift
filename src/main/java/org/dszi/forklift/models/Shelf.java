@@ -1,17 +1,18 @@
 package org.dszi.forklift.models;
 
 import org.dszi.forklift.repository.Storehouse;
-import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.RepaintManager;
+import org.dszi.forklift.Forklift;
 import org.dszi.forklift.repository.ImageRepository;
 
 /**
@@ -27,19 +28,16 @@ public class Shelf extends JComponent {
 	private Box[] boxes = new Box[5];
 	private final int spacer;
 
-	@Inject
 	private ImageRepository imageRepository;
 
-	@Inject
 	private JFrame mainFrame;
 
-	@Inject
 	private Storehouse storehouse;
+	private List<BeerModel> objOnShelf = new ArrayList<>();
 
 	public class Box extends JComponent {
 
 		public Point getBoxXY() {
-			//Box.this.setVisible(true);
 			if (mainFrame.isVisible()) {
 				return new Point(Box.this.getLocationOnScreen().x, Box.this.getLocationOnScreen().y);
 			} else {
@@ -60,6 +58,10 @@ public class Shelf extends JComponent {
 
 	public Shelf() {
 		super();
+		storehouse = Forklift.getInjector().getInstance(Storehouse.class);
+		imageRepository = Forklift.getInjector().getInstance(ImageRepository.class);
+		mainFrame = Forklift.getInjector().getInstance(JFrame.class);
+		scaleImage();
 		// setLayout(new BorderLayout());
 		setPreferredSize(new Dimension((int) (Rack.RACK_WIDTH), (int) ((Rack.RACK_HEIGHT) / 5)));
 		setBounds(0, 0, (int) Rack.RACK_WIDTH, (int) (Rack.RACK_HEIGHT / 5));
@@ -89,16 +91,32 @@ public class Shelf extends JComponent {
 	}
 
 	public int getXBorder() {
-		//if (isVisible())
 		return getLocation().x;
-		// else
-		//    return 9999;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(scaledImage, 0, 0, null);
+	}
+
+	public void assingObject(BeerModel obj) {
+		scaleImage();
+		objectCount++;
+		objOnShelf.add(obj);
+		storehouse.getBeers().add(obj);
+//		RepaintManager.currentManager(this).markCompletelyDirty(obj);
+
+	}
+
+	public void removeObject(BeerModel obj) {
+		objOnShelf.remove(obj);
+		storehouse.getBeers().remove(obj);
+//		RepaintManager.currentManager(this).markCompletelyDirty(obj);
+//		boxes[obj.getPlace()].removeObject();
+//		boxes[obj.getPlace()].remove(obj);
+		objectCount--;
+
 	}
 
 	public Box[] getBoxes() {

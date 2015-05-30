@@ -88,7 +88,6 @@ public class AddingForm extends JPanel {
 		double extract;
 		try {
 			ibu = Integer.parseInt(textFields[2].getText());
-
 		} catch (NumberFormatException e) {
 			textFields[2].setForeground(Color.red);
 			textFields[2].setText("Must be a number");
@@ -136,7 +135,6 @@ public class AddingForm extends JPanel {
 		for (int i = numberOfHops + numberOfMalts; i < numberOfHops + numberOfMalts + numberOfYeats; i++) {
 			if (comboBoxes[i].getSelectedItem().equals("lager")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.BOTTOM_FERMENTATION));
-
 			} else if (comboBoxes[i].getSelectedItem().equals("ale")) {
 				selectedYeasts.add(new YeastModel("", FermentationType.TOP_FERMENTATION));
 			}
