@@ -36,8 +36,6 @@ public class Rack extends JPanel {
 		setPreferredSize(new Dimension((int) RACK_WIDTH, (int) RACK_HEIGHT));
 		setLocation(80 * rackNumber + 1, 10);
 		setLayout(new GridLayout());
-		
-		grid.SetObject(new GridItem(), this.getX(), this.getY());
 	}
 
 	public Shelf getShelf(int shelfNumber) {

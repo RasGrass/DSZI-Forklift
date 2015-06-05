@@ -11,6 +11,7 @@ import org.dszi.forklift.repository.Storehouse;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -71,13 +72,7 @@ public class Forklift extends Canvas {
 	}
 
 	private void setupComponents() {
-		FlowLayout flow = new FlowLayout();
-		flow.setVgap(0);
-		for (int i = 0; i < 6; i++) {
-			racks[i] = new Rack();
-			racks[i].setLayout(flow);
-		}
-
+		
 		this.panelAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -109,7 +104,6 @@ public class Forklift extends Canvas {
 		panel.add(rightPanel, BorderLayout.EAST);
 		panel.add(drawingPane);
 		panel.setFocusable(true);
-		SetObstacles();
 		initFullscreen(frame);
 		initButtonPanel(buttonPanel);
 		fillDrawingPane();
@@ -130,13 +124,28 @@ public class Forklift extends Canvas {
 		return this;
 	}
 
-	public void loop() {
+	public void loop() {            
+                grid.SetLayoutResolution(drawingPane.getWidth(), drawingPane.getHeight());
+		SetRacks();
+                
 		gameLogic.MoveToPoint(new Point(0, 0), new Point(8, 8));
 		while (isRunning) {
 			gameLogic.processLogic();
 			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		}
 	}
+        
+        private void SetRacks()
+        {
+            FlowLayout flow = new FlowLayout();
+            
+            for (int i = 0; i < 1; i++) {
+			racks[i] = new Rack();
+			racks[i].setLayout(flow);                        
+                        drawingPane.add(racks[i]);
+                        grid.SetObject(new GridItem(),60 + racks[i].getX(),60 +  racks[i].getY());
+		}      		            
+        }
 
 	public static void main(String[] args) throws InterruptedException {
 		Forklift wozek = new Forklift();
@@ -144,20 +153,11 @@ public class Forklift extends Canvas {
 		wozek.loop();
 	}
 
-	private void SetObstacles() {
-		grid.SetObject(new GridItem(), 3, 3);
-	}
 
 	private void fillDrawingPane() {
 		drawingPane.setBackground(Color.LIGHT_GRAY);
-		drawingPane.add(forklift);
-		drawingPane.add(racks[0]);
-		 drawingPane.add(racks[1]);
-		 drawingPane.add(racks[2]);
-		 drawingPane.add(racks[3]);
-		 drawingPane.add(racks[4]);
-		 drawingPane.add(racks[5]);
 		frame.setVisible(true);
+                drawingPane.add(forklift);
 	}
 
 	private void initFullscreen(JFrame myFrame) throws HeadlessException {

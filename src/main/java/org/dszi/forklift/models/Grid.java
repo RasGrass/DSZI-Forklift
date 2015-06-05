@@ -10,12 +10,23 @@ public class Grid {
 
 	int _width;
 	int _height;
-
+        int scaleWidth;
+        int scaleHeight;
+            
+        
 	public Grid() {
-		_width = 1000;
-		_height = 1000;
+		_width = 15;
+		_height = 15;
+                scaleWidth = 1;
+                scaleHeight = 1;
 		initPool();
 	}
+        
+        public void SetLayoutResolution(int screenWidth, int screenHeight)
+        {
+           scaleWidth = screenWidth / _width;
+           scaleHeight = screenHeight / _height;
+        }
 
 	private void initPool() {
 		pools = new GridItem[_width][];
@@ -29,15 +40,21 @@ public class Grid {
 	}
 
 	public void SetObject(GridItem item, int x, int y) {
-		pools[x][y] = item;
+            int scaledX = x/scaleWidth;
+            int scaledY = y/scaleHeight;
+		pools[scaledX][scaledY] = item;
 	}
 
 	public GridItem GetObject(int x, int y) {
-		return pools[x][y];
+            int scaledX = x/scaleWidth;
+            int scaledY = y/scaleHeight;
+		return pools[scaledX][scaledY];
 	}
 
 	public void DeleteObject(int x, int y) {
-		pools[x][y] = null;
+            int scaledX = x/scaleWidth;
+            int scaledY = y/scaleHeight;
+		pools[scaledX][scaledY] = null;
 	}
 
 	public int GetWidth() {
