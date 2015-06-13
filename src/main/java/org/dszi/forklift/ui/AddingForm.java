@@ -3,6 +3,7 @@ package org.dszi.forklift.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
 import org.dszi.forklift.Forklift;
 import org.dszi.forklift.logic.DecisionTree;
+import org.dszi.forklift.logic.GameLogic;
 import org.dszi.forklift.models.BeerIngredient;
 import org.dszi.forklift.models.BeerModel;
 import org.dszi.forklift.models.FermentationType;
@@ -57,6 +59,7 @@ public class AddingForm extends JPanel {
 	private final String[] maltsEn;
 	
 	private final DecisionTree decisionTree;
+    private final GameLogic gameLogic;
 
 	public AddingForm() {
 		this.malts = new String[]{"Brak", "Pale Ale", "Palony", "Pilzneński", "Karmelowy", "Pszeniczny"};
@@ -75,6 +78,7 @@ public class AddingForm extends JPanel {
 		this.textFields = new JTextField[labels.length];
 		this.storehouse = Forklift.getInjector().getInstance(Storehouse.class);
 		this.beerName = new JTextField();
+                this.gameLogic = Forklift.getInjector().getInstance(GameLogic.class);
 		initPanel();
 		initComponents();
 		setUpComponents();
@@ -294,6 +298,8 @@ public class AddingForm extends JPanel {
 					textFields[4].setText("");
 					beerName.setForeground(Color.black);
 					beerName.setText("");
+                                        
+                                        gameLogic.NewBeer(beer.getSpecies());
 				}
 			}
 		});

@@ -288,28 +288,57 @@ public class Cart extends JComponent {
 		switch (moveAction) {
 			case RIGHT: {
 				gridX++;
-				setEmptyRight();
+                                if(empty)
+                                {
+                                    setEmptyRight();
+                                }
+                                else
+                                {
+                                    setRight();
+                                }
 				while (!moveX(gridX * rescaledX)) {
 				}
 				break;
 			}
 			case LEFT: {
 				gridX--;
-				setEmptyLeft();
+                                if(empty)
+                                {
+                                    setEmptyLeft();
+                                }
+                                else
+                                {
+                                    setLeft();
+                                }
 				while (!moveX(gridX * rescaledX)) {
 				}
 				break;
 			}
 			case BOTTOM: {
 				gridY++;
-				setEmptyDown();
+                                
+                                if(empty)
+                                {
+                                    setEmptyDown();
+                                }
+                                else
+                                {
+                                    setDown();
+                                }
 				while (!moveY(gridY * rescaledY)) {
 				}
 				break;
 			}
 			case TOP: {
 				gridY--;
-				setEmptyTop();
+                                if(empty)
+                                {
+                                    setEmptyTop();
+                                }
+                                else
+                                {
+                                    setTop();
+                                }
 				while (!moveY(gridY * rescaledY)) {
 				}
 				break;

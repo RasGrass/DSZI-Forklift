@@ -10,20 +10,15 @@ public class Grid {
 
 	int _width;
 	int _height;
-	int scaleWidth;
-	int scaleHeight;
+        int scaleWidth;
+        int scaleHeight;
 
 	public Grid() {
 		_width = 15;
 		_height = 15;
-		scaleWidth = 1;
-		scaleHeight = 1;
+                scaleWidth = 50;
+                scaleHeight = 50;
 		initPool();
-	}
-
-	public void SetLayoutResolution(int screenWidth, int screenHeight) {
-		scaleWidth = screenWidth / _width;
-		scaleHeight = screenHeight / _height;
 	}
 
 	private void initPool() {
@@ -36,23 +31,23 @@ public class Grid {
 			}
 		}
 	}
+        
+        public void SetScale(int width, int height)
+        {
+            scaleWidth = width / _width;
+            scaleHeight = height / _height;
+        }
 
 	public void SetObject(GridItem item, int x, int y) {
-		int scaledX = x / scaleWidth;
-		int scaledY = y / scaleHeight;
-		pools[scaledX][scaledY] = item;
+		pools[x][y] = item;
 	}
 
 	public GridItem GetObject(int x, int y) {
-		int scaledX = x / scaleWidth;
-		int scaledY = y / scaleHeight;
-		return pools[scaledX][scaledY];
+		return pools[x][y];
 	}
 
 	public void DeleteObject(int x, int y) {
-		int scaledX = x / scaleWidth;
-		int scaledY = y / scaleHeight;
-		pools[scaledX][scaledY] = null;
+		pools[x][y] = null;
 	}
 
 	public int GetWidth() {
@@ -62,4 +57,14 @@ public class Grid {
 	public int GetHeight() {
 		return _height;
 	}
+        
+        public int GetScaleWidth()
+        {
+            return scaleWidth;
+        }
+        
+        public int GetScaleHeight()
+        {
+            return scaleHeight;
+        }
 }

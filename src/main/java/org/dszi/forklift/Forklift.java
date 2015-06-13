@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -21,14 +22,19 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.RepaintManager;
 import org.dszi.forklift.models.Grid;
 import org.dszi.forklift.models.GridItem;
 import org.dszi.forklift.models.Rack;
+import org.dszi.forklift.models.Shelf;
 import org.dszi.forklift.ui.AddingForm;
 import org.dszi.forklift.ui.ItemListPanel;
 
@@ -106,7 +112,7 @@ public class Forklift extends Canvas {
 		panel.setFocusable(true);
 		initFullscreen(frame);
 		initButtonPanel(buttonPanel);
-		SetRacks();
+		SetRacks();                                
 		fillDrawingPane();
 
 		myRepaintManager = new RepaintManager();
@@ -126,9 +132,8 @@ public class Forklift extends Canvas {
 	}
 
 	public void loop() {
-		grid.SetLayoutResolution(drawingPane.getWidth(), drawingPane.getHeight());
-
-		gameLogic.MoveToPoint(new Point(0, 0), new Point(8, 8));
+                //grid.SetScale(getWidth(), getHeight());
+               // SetObstacles();
 		while (isRunning) {
 			gameLogic.processLogic();
 			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
@@ -142,8 +147,8 @@ public class Forklift extends Canvas {
 			racks[i] = new Rack();
 			racks[i].setLayout(flow);
 			drawingPane.add(racks[i]);
-			grid.SetObject(new GridItem(), racks[i].getX(), racks[i].getY());
 		}
+              
 	}
 
 	public static void main(String[] args) throws InterruptedException {
@@ -214,5 +219,27 @@ public class Forklift extends Canvas {
 		rightPanel.add(buttonPanel, BorderLayout.NORTH);
 		rightPanel.add(rightTextPanel, BorderLayout.CENTER);
 	}
+        
+    private void SetObstacles() {
+        
+        
+        List<Point> obstacles = new ArrayList<>();
+        obstacles.add(new Point(2, 3));
+        obstacles.add(new Point(2, 5));
+        obstacles.add(new Point(2, 7));
+        
+        for(Point obs : obstacles)
+        {       
+            Shelf shelf= new Shelf();
+            shelf.setLayout(new GridLayout());
+            shelf.setLocation(obs.x * grid.GetScaleWidth(),obs.y * grid.GetScaleHeight());
+            shelf.setSize(grid.GetScaleWidth(),grid.GetScaleHeight());
+            shelf.setPreferredSize(new Dimension(50 ,50));            
+            shelf.setObstacle(true);
+            
+            drawingPane.add(shelf);
+            grid.SetObject(new GridItem(), obs.x, obs.y);
+        }
+    }
 
 }

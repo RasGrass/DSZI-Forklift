@@ -78,7 +78,7 @@ public class TreeState {
 	private List<TreeItem> successor(Grid grid, TreeItem item) {
 		List<TreeItem> actions = new ArrayList();
 		Point point = item.GetPoint();
-
+                
 		if (point.y > 0) {
 			if (grid.GetObject(point.x, point.y - 1) == null) {
 				actions.add(new TreeItem(new Point(point.x, point.y - 1), MoveActionTypes.TOP));

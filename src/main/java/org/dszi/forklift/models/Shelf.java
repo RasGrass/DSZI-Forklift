@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 import javax.swing.JFrame;
-import javax.swing.RepaintManager;
 import org.dszi.forklift.Forklift;
 import org.dszi.forklift.repository.ImageRepository;
 
@@ -34,6 +33,7 @@ public class Shelf extends JComponent {
 
 	private Storehouse storehouse;
 	private List<BeerModel> objOnShelf = new ArrayList<>();
+        private Boolean isObstacle;
 
 	public class Box extends JComponent {
 
@@ -83,7 +83,7 @@ public class Shelf extends JComponent {
 			boxes[i].setLocation(Shelf.this.getLocation().x, (int) (Shelf.this.getSize().height / 5) + (spacer * (i - 1)));
 			add(boxes[i]);
 		}
-
+                isObstacle = false;
 	}
 
 	public int getObjectCount() {
@@ -97,7 +97,14 @@ public class Shelf extends JComponent {
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(scaledImage, 0, 0, null);
+                if(isObstacle)
+                {
+                    g2d.fillRect(0,0,getWidth(), getHeight());
+                }
+                else
+                {
+                    g2d.drawImage(scaledImage, 0, 0, null);
+                }
 	}
 
 	public void assingObject(BeerModel obj) {
@@ -108,6 +115,14 @@ public class Shelf extends JComponent {
 //		RepaintManager.currentManager(this).markCompletelyDirty(obj);
 
 	}
+        
+        public void setObstacle(Boolean isObstacle){
+            this.isObstacle = isObstacle;
+            if(isObstacle)
+            {
+                removeAll();
+            }
+        }
 
 	public void removeObject(BeerModel obj) {
 		objOnShelf.remove(obj);
