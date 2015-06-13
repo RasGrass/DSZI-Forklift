@@ -63,8 +63,8 @@ public class Shelf extends JComponent {
 		mainFrame = Forklift.getInjector().getInstance(JFrame.class);
 		scaleImage();
 		// setLayout(new BorderLayout());
-		setPreferredSize(new Dimension((int) (Rack.RACK_WIDTH), (int) ((Rack.RACK_HEIGHT) / 5)));
-		setBounds(0, 0, (int) Rack.RACK_WIDTH, (int) (Rack.RACK_HEIGHT / 5));
+		setPreferredSize(new Dimension((int) (Rack.RACK_WIDTH), (int) ((Rack.RACK_HEIGHT) / 3)));
+		setBounds(0, 0, (int) Rack.RACK_WIDTH, (int) (Rack.RACK_HEIGHT / 3));
 		//ToolTipManager.sharedInstance().registerComponent(this);
 		//System.out.println(getPreferredSize());
 		ToolTipManager.sharedInstance().setEnabled(true);

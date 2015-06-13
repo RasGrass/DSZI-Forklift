@@ -72,7 +72,7 @@ public class Forklift extends Canvas {
 	}
 
 	private void setupComponents() {
-		
+
 		this.panelAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -106,6 +106,7 @@ public class Forklift extends Canvas {
 		panel.setFocusable(true);
 		initFullscreen(frame);
 		initButtonPanel(buttonPanel);
+		SetRacks();
 		fillDrawingPane();
 
 		myRepaintManager = new RepaintManager();
@@ -124,28 +125,26 @@ public class Forklift extends Canvas {
 		return this;
 	}
 
-	public void loop() {            
-                grid.SetLayoutResolution(drawingPane.getWidth(), drawingPane.getHeight());
-		SetRacks();
-                
+	public void loop() {
+		grid.SetLayoutResolution(drawingPane.getWidth(), drawingPane.getHeight());
+
 		gameLogic.MoveToPoint(new Point(0, 0), new Point(8, 8));
 		while (isRunning) {
 			gameLogic.processLogic();
 			RepaintManager.currentManager(drawingPane).markCompletelyDirty(drawingPane);
 		}
 	}
-        
-        private void SetRacks()
-        {
-            FlowLayout flow = new FlowLayout();
-            
-            for (int i = 0; i < 1; i++) {
+
+	private void SetRacks() {
+		FlowLayout flow = new FlowLayout();
+
+		for (int i = 0; i < 1; i++) {
 			racks[i] = new Rack();
-			racks[i].setLayout(flow);                        
-                        drawingPane.add(racks[i]);
-                        grid.SetObject(new GridItem(),60 + racks[i].getX(),60 +  racks[i].getY());
-		}      		            
-        }
+			racks[i].setLayout(flow);
+			drawingPane.add(racks[i]);
+			grid.SetObject(new GridItem(), racks[i].getX(), racks[i].getY());
+		}
+	}
 
 	public static void main(String[] args) throws InterruptedException {
 		Forklift wozek = new Forklift();
@@ -153,11 +152,16 @@ public class Forklift extends Canvas {
 		wozek.loop();
 	}
 
-
 	private void fillDrawingPane() {
 		drawingPane.setBackground(Color.LIGHT_GRAY);
 		frame.setVisible(true);
-                drawingPane.add(forklift);
+		drawingPane.add(forklift);
+		drawingPane.add(racks[0]);
+//		drawingPane.add(racks[1]);
+//		drawingPane.add(racks[2]);
+//		drawingPane.add(racks[3]);
+//		drawingPane.add(racks[4]);
+//		drawingPane.add(racks[5]);
 	}
 
 	private void initFullscreen(JFrame myFrame) throws HeadlessException {

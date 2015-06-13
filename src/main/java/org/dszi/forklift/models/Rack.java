@@ -13,13 +13,13 @@ import org.dszi.forklift.Forklift;
  */
 public class Rack extends JPanel {
 
-	private Shelf[] shelfs = new Shelf[5];
+	private Shelf[] shelfs = new Shelf[3];
 	private static int counter = 0;
 	private final int rackNumber;
 	public static final double RACK_HEIGHT = (Toolkit.getDefaultToolkit().getScreenSize().height) * 0.875;
 	public static final double RACK_WIDTH = (Toolkit.getDefaultToolkit().getScreenSize().width) / 30;
 	public static final double START_POS = (Toolkit.getDefaultToolkit().getScreenSize().width) / 10;
-	public static final double SPACER = (Toolkit.getDefaultToolkit().getScreenSize().width) / 15;
+	public static final double SPACER = (Toolkit.getDefaultToolkit().getScreenSize().width) / 2;
 
 	private final Grid grid;
 	
@@ -29,7 +29,7 @@ public class Rack extends JPanel {
 		grid=Forklift.getInjector().getInstance(Grid.class);
 		//setLayout(new BorderLayout());
 		rackNumber = counter++;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			shelfs[i] = new Shelf();
 			add(shelfs[i]);
 		}
